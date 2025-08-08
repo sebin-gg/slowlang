@@ -10,7 +10,7 @@ Why rush, when your code can feel... meaningful?
 
 ## 🧠 Basic Details
 
-### Team Name: 🐌 SlothOps
+### Team Name: XYZ
 
 ### Team Members
 - **Sebin Mathew** – College of Engineering Chengannur  
