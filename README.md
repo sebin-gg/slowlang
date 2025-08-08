@@ -64,26 +64,89 @@ pip install windows-curses keyboard time fpdf rich pyqt5
 
 ## ▶️ How to Run
 
+### 1. **Run the Interpreter (for `.slow` files):**
+
 ```bash
 python tortoise_lang.py <yourfile.slow>
 ```
 
-Or use the included IDE:
+- This will check your code for politeness (`please()` calls at random intervals).
+- **10% of the time, the compiler will refuse to run your code due to laziness. Just try again!**
+- If polite, your code runs just like Python.
+- If not, you'll get a "Your code is too rude!" error.
+
+---
+
+### 2. **Use the Included IDE:**
 
 ```bash
 python ui-fakeide.py
 ```
+
+#### **IDE Features:**
+- **Live typing speed enforcement:**  
+  Type too fast and a turtle rage window will pop up with sarcastic feedback.
+- **Politeness check:**  
+  Use the "Export as .slow" button to save your code. The IDE will check for `please()` calls at random intervals and refuse to export if your code is "too rude".
+- **Run code like Python:**  
+  Use the "Run (like Python)" button to execute your code directly in the IDE. The `please()` function is available and prints a polite message.
+- **Python color scheme and smart indentation:**  
+  The editor highlights Python keywords, strings, comments, and builtins, and auto-indents after colons for blocks.
 
 ---
 
 ## 🐢 Language Features
 
 - **Python-like syntax:** Write code just like Python.
-- **Speed enforcement:** Typing too fast triggers sarcastic errors and turtle rage.
-- **Politeness required:** You must include `please()` calls at random intervals in your code, or the compiler refuses to run ("Your code is too rude!").
+- **Speed enforcement:** Typing too fast triggers sarcastic errors and turtle rage (in a popup window in the IDE).
+- **Politeness required:** You must include `please()` calls at random intervals in your code, or the compiler/IDE refuses to run or export ("Your code is too rude!").
 - **Sarcastic feedback:** Get sassy remarks and poetic haikus if you break the rules.
-- **Export options:** Save your code as `.slow` (with politeness check), plain text, or PDF.
-- **Fake IDE:** Includes a Tkinter-based IDE with live feedback and export buttons.
+- **Export options:** Save your code as `.slow` (with politeness check).
+- **Fake IDE:** Includes a Tkinter-based IDE with live feedback, export, and run buttons, Python color scheme, and smart indentation.
+
+---
+
+## 🧪 How to Test the IDE
+
+1. **Start the IDE:**
+   ```bash
+   python ui-fakeide.py
+   ```
+
+2. **Type your code** in the editor window.  
+   - If you type too fast, a turtle rage popup will appear and sarcastic feedback will be shown.
+   - If you slow down, the turtle will be happy.
+   - Python keywords, comments, and strings are highlighted. Indentation is automatic after colons.
+
+3. **Insert `please()` calls** every few lines (at random intervals) in your code.
+
+4. **Export your code:**
+   - Click "Export as .slow (politeness check)" to save your code as a `.slow` file.  
+     If you don't have enough `please()` calls, the IDE will refuse to export and show you where to add one.
+
+5. **Run your code:**
+   - Click "Run (like Python)" to execute your code in the IDE.  
+     Output (including `please()` messages) will appear in a new window.
+
+6. **Test your `.slow` file in the interpreter:**
+   ```bash
+   python tortoise_lang.py your_exported_file.slow
+   ```
+   - If your code is polite, it will run (unless the compiler is "lazy"—just try again).
+   - If not, you'll get a "too rude" error.
+
+---
+
+## 📝 Example `.slow` File
+
+```python
+print("Hello, world!")
+please()
+for i in range(3):
+    print(i)
+please()
+print("Done!")
+```
 
 ---
 
