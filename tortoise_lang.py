@@ -23,6 +23,10 @@ def please():
     print("🙏 The turtle thanks you for your politeness.")
 
 def run_slowlang(filename):
+    # 10% chance to refuse to run due to laziness
+    if random.random() < 0.1:
+        print("🐢 The TortoiseLang compiler is feeling lazy and refuses to run your code right now. Try again!")
+        return
     with open(filename, encoding="utf-8") as f:
         code = f.read()
     lines = code.splitlines()
