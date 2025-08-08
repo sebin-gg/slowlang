@@ -20,7 +20,6 @@ def check_pleases(lines):
     return True
 
 def please():
-    # The magic function required by the language
     print("🙏 The turtle thanks you for your politeness.")
 
 def run_slowlang(filename):
@@ -30,13 +29,10 @@ def run_slowlang(filename):
     if not check_pleases(lines):
         print("🐢 Refusing to run rude code.")
         return
-    # Provide 'please' in the global namespace
     exec(code, {"please": please})
 
 if __name__ == "__main__":
-    engine = TypingEngine(speed_limit_wpm=30)
-    try:
-        engine.type_listener()
-    except Exception as e:
-        print("\n" + get_sarcastic_message())
-        print("\n✨ Poetic wisdom:\n" + get_poetic_output())
+    if len(sys.argv) != 2:
+        print("Usage: python tortoise_lang.py <yourfile.slow>")
+    else:
+        run_slowlang(sys.argv[1])
