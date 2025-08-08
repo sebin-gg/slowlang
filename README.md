@@ -115,5 +115,4 @@ Turtle rage ASCII → Sarcastic error → Poetic output*
 Made with ❤️ at TinkerHub Useless Projects
 ![Badge](https://img.shields.io/badge/TinkerHub-24-black)
 ![Badge](https://img.shields.io/badge/UselessProjects--25-25)
-Let me know if you’d like a `.md` file download too!
 ```
