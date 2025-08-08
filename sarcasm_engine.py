@@ -1,18 +1,31 @@
 import random
 
-def get_sarcastic_message():
-    messages = [
-        "Oh wow, you're a real keyboard ninja, aren't you?",
-        "Slow down! The turtle’s about to sue you for emotional damage.",
-        "Your keyboard called. It needs a vacation.",
-        "This isn’t a Formula 1 race. It’s TortoiseLang.",
-        "Congratulations! You’ve earned the ‘Too Fast, Too Curious’ award.",
-        "Nice try, Shakespeare. But the turtle disagrees.",
-        "Coding at warp speed? Bold. Wrong, but bold.",
-        "You're typing faster than the turtle can think. Rude.",
-        "Ever heard of slow food? This is slow code.",
-        "Your code has officially outpaced human patience."
-    ]
+def get_sarcastic_message(theme="default"):
+    if theme == "lazy_turtle":
+        messages = [
+            "The turtle is napping. Try again later.",
+            "Why rush? The turtle needs a break.",
+            "Yawn... too much effort for the turtle."
+        ]
+    elif theme == "grumpy_mentor":
+        messages = [
+            "Back in my day, we typed slower.",
+            "You call that code? Try again, rookie.",
+            "Slow down, or you'll break something."
+        ]
+    else:
+        messages = [
+            "Oh wow, you're a real keyboard ninja, aren't you?",
+            "Slow down! The turtle’s about to sue you for emotional damage.",
+            "Your keyboard called. It needs a vacation.",
+            "This isn’t a Formula 1 race. It’s TortoiseLang.",
+            "Congratulations! You’ve earned the ‘Too Fast, Too Curious’ award.",
+            "Nice try, Shakespeare. But the turtle disagrees.",
+            "Coding at warp speed? Bold. Wrong, but bold.",
+            "You're typing faster than the turtle can think. Rude.",
+            "Ever heard of slow food? This is slow code.",
+            "Your code has officially outpaced human patience."
+        ]
     return random.choice(messages)
 
 def get_sarcastic_remark():
