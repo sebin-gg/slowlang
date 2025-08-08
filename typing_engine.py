@@ -1,77 +1,76 @@
 import time
-import random
-import os
+import keyboard
 
-# Sarcasm responses
-sarcasm_lines = [
-    "Wow. That was... something.",
-    "Impressive. If we were timing snails.",
-    "You're typing like it's 1995 dial-up.",
-    "My grandma types faster—and she's imaginary.",
-    "That was... slow. Even for this language."
-]
+class TypingEngine:
+    def __init__(self, speed_limit_wpm=30):
+        self.speed_limit_wpm = speed_limit_wpm  # max allowed words per minute
+        self.timestamps = []
+        self.buffer = ''
+        self.error_triggered = False
 
-# ASCII turtle rage frames
-turtle_frames = [
-    r"""
-        (\_/)
-        (•_•)  ...
-        / >🐢
-    """,
-    r"""
-        (\_/)
-        (•_•)  😠
-        / >💢
-    """,
-    r"""
-        (\_/)
-        (ง •̀_•́)ง  😡
-        / >🔥
-    """,
-    r"""
-        (\_/)
-        (╯°□°)╯︵ ┻━┻
-        / >💥
-    """
-]
+    def _word_count(self):
+        return len(self.buffer.strip().split())
 
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    def _calculate_speed(self):
+        if len(self.timestamps) < 2:
+            return 0
+        duration = self.timestamps[-1] - self.timestamps[0]
+        if duration == 0:
+            return 0
+        wpm = (self._word_count() / duration) * 60
+        return wpm
 
-def display_turtle_rage():
-    for frame in turtle_frames:
-        clear_screen()
-        print(frame)
-        time.sleep(0.4)
+    def _reset(self):
+        self.timestamps = []
+        self.buffer = ''
+        self.error_triggered = False
 
-def typing_session():
-    clear_screen()
-    print("⌨️ Welcome to SlowLang Typing Challenge")
-    prompt = "The quick brown fox jumps over the lazy dog"
-    print(f"\n📝 Type this:\n{prompt}\n")
+    def type_listener(self):
+        print("🐢 Welcome to TortoiseLang! Type slowly...\n")
+        self._reset()
 
-    input("Press ENTER when you're ready...")
-    clear_screen()
-    print(f"\n📝 Type this:\n{prompt}\n")
+        while True:
+            event = keyboard.read_event()
+            if event.event_type == keyboard.KEY_DOWN:
+                key = event.name
 
-    start_time = time.time()
-    user_input = input("Your input: ")
-    end_time = time.time()
+                # Handle space or enter as a word boundary
+                if key == 'space' or key == 'enter':
+                    self.buffer += ' '
+                elif key == 'backspace':
+                    self.buffer = self.buffer[:-1]
+                elif len(key) == 1:  # only count alphanumeric keys
+                    self.buffer += key
 
-    elapsed = end_time - start_time
-    accuracy = sum(1 for a, b in zip(prompt, user_input) if a == b) / len(prompt) * 100
-    wpm = (len(user_input) / 5) / (elapsed / 60)
+                # Timestamp this key
+                self.timestamps.append(time.time())
 
-    print("\n⏱️  Results:")
-    print(f"   Time Taken: {elapsed:.2f} sec")
-    print(f"   Typing Speed: {wpm:.2f} WPM")
-    print(f"   Accuracy: {accuracy:.2f}%")
+                # Keep last 10 seconds' timestamps
+                self.timestamps = [ts for ts in self.timestamps if time.time() - ts <= 10]
 
-    if accuracy < 80 or wpm < 20:
-        print(f"\n🥴 SARCASM: {random.choice(sarcasm_lines)} 🙄")
-        display_turtle_rage()
-    else:
-        print("\n👏 Great job, you beat the turtle!")
+                # Check speed
+                speed = self._calculate_speed()
+                if speed > self.speed_limit_wpm:
+                    self.error_triggered = True
+                    raise Exception(
+                        f"\n😤 Whoa there, Shakespeare!\n🧠 You're typing at {int(speed)} WPM!\n🐢 Slow down. This is TortoiseLang.\n"
+                    )
+
+                if key == 'esc':
+                    print("\n👋 Exiting typing engine. Goodbye!")
+                    break
 
 if __name__ == "__main__":
-    typing_session()
+    engine = TypingEngine(speed_limit_wpm=30)
+    try:
+        engine.type_listener()
+    except Exception as e:
+        print(str(e))
+from ascii_turtle import show_turtle_rage
+...
+if speed > self.speed_limit_wpm:
+    self.error_triggered = True
+    show_turtle_rage()
+    raise Exception(
+        f"\n😤 Whoa there, Shakespeare!\n🧠 You're typing at {int(speed)} WPM!\n🐢 Slow down. This is TortoiseLang.\n"
+    )
