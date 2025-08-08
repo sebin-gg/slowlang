@@ -15,4 +15,9 @@ def export_to_pdf(text):
     # Output the PDF to a file
     pdf.output("tortoise_output.pdf")
 
+def export_text(text, filename="tortoise_output.txt"):
+    """Export the text buffer to a plain text file."""
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(text)
+
 

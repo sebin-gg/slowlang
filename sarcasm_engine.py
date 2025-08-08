@@ -15,6 +15,10 @@ def get_sarcastic_message():
     ]
     return random.choice(messages)
 
+def get_sarcastic_remark():
+    # Alias for compatibility with typing_engine.py
+    return get_sarcastic_message()
+
 def get_poetic_output():
     haikus = [
         # Original Creative Haikus
