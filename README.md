@@ -13,7 +13,7 @@ Why rush, when your code can feel... meaningful?
 ### Team Name: XYZ
 
 ### Team Members
-- **Sebin Mathew** – College of Engineering Chengannur  
+- Team Lead:  **Sebin Mathew** – College of Engineering Chengannur  
 - **Abin Zachariah Abraham** – College of Engineering Chengannur
 
 ---
