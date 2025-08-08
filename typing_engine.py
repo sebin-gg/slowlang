@@ -1,5 +1,6 @@
 import time
 import keyboard
+from ascii_turtle import show_turtle_rage  # Make sure ascii_turtle.py exists
 
 class TypingEngine:
     def __init__(self, speed_limit_wpm=30):
@@ -52,6 +53,7 @@ class TypingEngine:
                 speed = self._calculate_speed()
                 if speed > self.speed_limit_wpm:
                     self.error_triggered = True
+                    show_turtle_rage()
                     raise Exception(
                         f"\n😤 Whoa there, Shakespeare!\n🧠 You're typing at {int(speed)} WPM!\n🐢 Slow down. This is TortoiseLang.\n"
                     )
@@ -67,10 +69,3 @@ if __name__ == "__main__":
     except Exception as e:
         print(str(e))
 from ascii_turtle import show_turtle_rage
-...
-if speed > self.speed_limit_wpm:
-    self.error_triggered = True
-    show_turtle_rage()
-    raise Exception(
-        f"\n😤 Whoa there, Shakespeare!\n🧠 You're typing at {int(speed)} WPM!\n🐢 Slow down. This is TortoiseLang.\n"
-    )
