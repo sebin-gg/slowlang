@@ -1,20 +1,24 @@
 import time
 
-def calculate_wpm(start_time, end_time, typed_text):
-    words = len(typed_text.split())
-    duration = end_time - start_time
-    wpm = (words / duration) * 60
-    return round(wpm, 2)
+def typing_speed_tracker():
+    text_to_type = "Slow down! Accuracy over speed."
+    print("Type this: ", text_to_type)
+    
+    input("Press Enter to start typing...")
+    start = time.time()
+    user_input = input("Now type: ")
+    end = time.time()
 
-prompt = "The quick brown fox jumps over the lazy dog."
+    elapsed = end - start
+    wpm = (len(user_input) / 5) / (elapsed / 60)
+    
+    if user_input != text_to_type:
+        print("🐢 ASCII TURTLE: You messed it up. Again.")
+        print("🥴 SARCASM: That was... 'impressive'. 🙄")
+    else:
+        print("👏 Nailed it!")
+    
+    print(f"⏱️ Your typing speed: {wpm:.2f} WPM")
 
-print("Type this sentence:")
-print(prompt)
-input("Press Enter to start...")
-
-start = time.time()
-typed = input("\nStart typing:\n")
-end = time.time()
-
-wpm = calculate_wpm(start, end, typed)
-print(f"\nYour typing speed: {wpm} WPM")
+if __name__ == "__main__":
+    typing_speed_tracker()
