@@ -56,7 +56,7 @@ It promotes *"patience-oriented programming"* with haikus, delays, and sarcastic
 
 ```bash
 pip install windows-curses keyboard time fpdf rich pyqt5
-````
+```
 
 > For Linux/Mac: use `curses` instead of `windows-curses`.
 
@@ -65,8 +65,25 @@ pip install windows-curses keyboard time fpdf rich pyqt5
 ## ▶️ How to Run
 
 ```bash
-python tortoise_lang.py
+python tortoise_lang.py <yourfile.slow>
 ```
+
+Or use the included IDE:
+
+```bash
+python ui-fakeide.py
+```
+
+---
+
+## 🐢 Language Features
+
+- **Python-like syntax:** Write code just like Python.
+- **Speed enforcement:** Typing too fast triggers sarcastic errors and turtle rage.
+- **Politeness required:** You must include `please()` calls at random intervals in your code, or the compiler refuses to run ("Your code is too rude!").
+- **Sarcastic feedback:** Get sassy remarks and poetic haikus if you break the rules.
+- **Export options:** Save your code as `.slow` (with politeness check), plain text, or PDF.
+- **Fake IDE:** Includes a Tkinter-based IDE with live feedback and export buttons.
 
 ---
 
@@ -115,4 +132,3 @@ Turtle rage ASCII → Sarcastic error → Poetic output*
 Made with ❤️ at TinkerHub Useless Projects
 ![Badge](https://img.shields.io/badge/TinkerHub-24-black)
 ![Badge](https://img.shields.io/badge/UselessProjects--25-25)
-```
