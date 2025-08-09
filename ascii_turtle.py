@@ -10,7 +10,7 @@ def show_turtle_rage():
             /_/     \_\
     🐢 RAGE MODE: Turtle is not amused by your speed.
     """
-    print(turtle)
+    print(turtle) 
 
 def show_turtle_just_right():
     turtle = r"""

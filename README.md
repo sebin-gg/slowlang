@@ -1,9 +1,9 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
-# 🐢 TortoiseLang – Slower is Better
+# 🐢 slowLang – Slower is Better
 
-A **sarcastic programming language** that throws errors if you type too fast.  
-Complete with a screaming ASCII turtle, fake poetic compiler, and sassy IDE.  
+A **sarcastic programming language** and IDE that throws errors if you type too fast.  
+Complete with a screaming ASCII turtle, poetic output, and a sassy, minimalistic Python IDE.  
 Why rush, when your code can feel... meaningful?
 
 ---
@@ -27,7 +27,7 @@ leading to stressful coding habits and unrealistic expectations on typing speed.
 
 ## ✅ The Solution (that nobody asked for)
 
-**TortoiseLang** introduces a language that enforces slow typing.  
+**slowLang** introduces a language and IDE that enforces slow, mindful typing.  
 Typing too fast results in errors and angry turtle ASCII feedback.  
 It promotes *"patience-oriented programming"* with haikus, delays, and sarcastic praise.
 
@@ -36,16 +36,12 @@ It promotes *"patience-oriented programming"* with haikus, delays, and sarcastic
 ## 🔧 Technologies / Components Used
 
 ### Software:
-- Python (for interpreter)
-- Tkinter
-- PyQt5
-- Streamlit *(optional for web showcase)*
+- Python (for IDE and core logic)
+- Tkinter (for the fake IDE UI)
 
 ### Libraries:
-- curses / windows-curses
 - keyboard
 - time
-- fpdf
 - rich
 - os, sys, re, argparse *(optional)*
 - VS Code + Extensions
@@ -55,29 +51,16 @@ It promotes *"patience-oriented programming"* with haikus, delays, and sarcastic
 ## ⚙️ Installation
 
 ```bash
-pip install windows-curses keyboard time fpdf rich pyqt5
+pip install keyboard time rich
 ```
 
-> For Linux/Mac: use `curses` instead of `windows-curses`.
+> Tkinter comes with Python by default.
 
 ---
 
 ## ▶️ How to Run
 
-### 1. **Run the Interpreter (for `.slow` files):**
-
-```bash
-python tortoise_lang.py <yourfile.slow>
-```
-
-- This will check your code for politeness (`please()` calls at random intervals).
-- **10% of the time, the compiler will refuse to run your code due to laziness. Just try again!**
-- If polite, your code runs just like Python.
-- If not, you'll get a "Your code is too rude!" error.
-
----
-
-### 2. **Use the Included IDE:**
+### **Start the IDE:**
 
 ```bash
 python ui-fakeide.py
@@ -86,23 +69,24 @@ python ui-fakeide.py
 #### **IDE Features:**
 - **Live typing speed enforcement:**  
   Type too fast and a turtle rage window will pop up with sarcastic feedback.
-- **Politeness check:**  
-  Use the "Export as .slow" button to save your code. The IDE will check for `please()` calls at random intervals and refuse to export if your code is "too rude".
 - **Run code like Python:**  
-  Use the "Run (like Python)" button to execute your code directly in the IDE. The `please()` function is available and prints a polite message.
+  Use the "Run (like Python)" button to execute your code directly in the IDE.
 - **Python color scheme and smart indentation:**  
   The editor highlights Python keywords, strings, comments, and builtins, and auto-indents after colons for blocks.
+- **Turtle moods:**  
+  Different ASCII turtles for "too fast", "just right", and "too slow" typing.
+- **Intro popup:**  
+  Shows a summary of features before you start coding.
 
 ---
 
-## 🐢 Language Features
+## 🐢 Language & IDE Features
 
-- **Python-like syntax:** Write code just like Python.
+- **Python-like syntax:** Write and run code just like Python.
 - **Speed enforcement:** Typing too fast triggers sarcastic errors and turtle rage (in a popup window in the IDE).
-- **Politeness required:** You must include `please()` calls at random intervals in your code, or the compiler/IDE refuses to run or export ("Your code is too rude!").
 - **Sarcastic feedback:** Get sassy remarks and poetic haikus if you break the rules.
-- **Export options:** Save your code as `.slow` (with politeness check).
-- **Fake IDE:** Includes a Tkinter-based IDE with live feedback, export, and run buttons, Python color scheme, and smart indentation.
+- **Fake IDE:** Includes a Tkinter-based IDE with live feedback, Python color scheme, and smart indentation.
+- **No PDF export, no .slow interpreter:** All code is written and run directly in the IDE for a seamless, fun experience.
 
 ---
 
@@ -116,35 +100,17 @@ python ui-fakeide.py
 2. **Type your code** in the editor window.  
    - If you type too fast, a turtle rage popup will appear and sarcastic feedback will be shown.
    - If you slow down, the turtle will be happy.
-   - Python keywords, comments, and strings are highlighted. Indentation is automatic after colons.
-
-3. **Insert `please()` calls** every few lines (at random intervals) in your code.
-
-4. **Export your code:**
-   - Click "Export as .slow (politeness check)" to save your code as a `.slow` file.  
-     If you don't have enough `please()` calls, the IDE will refuse to export and show you where to add one.
-
-5. **Run your code:**
+3. **Run your code:**
    - Click "Run (like Python)" to execute your code in the IDE.  
-     Output (including `please()` messages) will appear in a new window.
-
-6. **Test your `.slow` file in the interpreter:**
-   ```bash
-   python tortoise_lang.py your_exported_file.slow
-   ```
-   - If your code is polite, it will run (unless the compiler is "lazy"—just try again).
-   - If not, you'll get a "too rude" error.
 
 ---
 
-## 📝 Example `.slow` File
+## 📝 Example Code
 
 ```python
 print("Hello, world!")
-please()
 for i in range(3):
     print(i)
-please()
 print("Done!")
 ```
 
@@ -171,24 +137,32 @@ Turtle rage ASCII → Sarcastic error → Poetic output*
 
 ---
 
-## 🎥 Project Demo
-
 ### 📹 Video
 
 [Demo Video Link](https://example.com/demo-tortoise-lang)
-*Demonstrates typing, turtle reactions, and poetic output.*
-
-### 🎭 Additional Demos
-
-* [ASCII Turtle Pack](https://example.com/ascii-turtles)
-* [Sample Tortoise Code](https://example.com/sample.tortoise)
-
 ---
 
 ## 🧑‍🤝‍🧑 Team Contributions
 
 * **Sebin Mathew** – Typing speed engine, sarcasm handler, turtle rage ASCII
-* **Abin Zachariah Abraham** – Fake IDE window UI, PDF export module, emoji benchmark spoof
+* **Abin Zachariah Abraham** – Fake IDE window UI, poetic output, emoji benchmark spoof
+
+---
+
+## 🧑‍🎓 What We Learned
+
+- **UI/UX matters, even for joke projects:**  
+  Making a fun, interactive, and visually engaging IDE (with popups, color schemes, and ASCII art) is as important as the core logic.
+- **Python’s Tkinter is powerful and flexible:**  
+  We learned how to build a custom code editor with syntax highlighting, smart indentation, and dynamic feedback using only standard libraries.
+- **Injecting humor into code is a design challenge:**  
+  Balancing sarcasm, fake delays, and playful feedback without frustrating the user too much required careful tuning.
+- **Code structure and modularity:**  
+  Separating sarcasm, ASCII art, and UI logic into different files made the project easier to maintain and extend.
+- **Testing for edge cases:**  
+  We had to handle cases like re-enabling the editor after errors, and making sure the turtle’s moods always matched the user’s typing speed.
+- **Collaboration and version control:**  
+  Using GitHub for collaboration, code reviews, and version management helped us work efficiently as a team.
 
 ---
 

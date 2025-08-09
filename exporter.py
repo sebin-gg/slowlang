@@ -1,5 +1,4 @@
 from fpdf import FPDF
-
 def export_to_pdf(text):
     # Create a PDF object
     pdf = FPDF()
