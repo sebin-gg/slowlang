@@ -120,17 +120,17 @@ print("Done!")
 
 ## 🖼️ Screenshots
 
-![Screenshot1](https://drive.google.com/file/d/11mKm-JX4TPng84c43WK1i0IYZwzkHFVG/view?usp=sharing)
+![Screenshot1](https://drive.google.com/file/d/1Ba5y2ptNzvYolx_A00O62SuwsWEJkqDN/view?usp=sharing)
 *A fake IDE window showing turtle ASCII reacting to fast typing.*
 
-![Screenshot2](screenshots/error_message.png)
+![Screenshot2](https://drive.google.com/file/d/1qLElTJa4aUZkYwygmY3sriWan_yTKU8l/view?usp=sharing)
 *Sarcastic error: “Whoa there, Shakespeare. Try again… slower.”*
 
-![Screenshot3](screenshots/final_output.png)
+![Screenshot3](https://drive.google.com/file/d/1-fUWa-ISiAdPaosTDovZZqDBx6mv_Xla/view?usp=sharing)
 *The “compiled” poetic output of your slow-written program.*
 
 ---
-
+v
 ## 📊 Diagram
 
 ![Workflow](assets/workflow_diagram.png)
