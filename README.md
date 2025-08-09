@@ -77,6 +77,8 @@ python ui-fakeide.py
   Different ASCII turtles for "too fast", "just right", and "too slow" typing.
 - **Intro popup:**  
   Shows a summary of features before you start coding.
+  - **Wisdom:**
+  • The compiler will sometimes pop words of wisdom after execution.
 
 ---
 
