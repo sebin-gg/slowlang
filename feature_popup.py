@@ -14,6 +14,7 @@ Features:
 • Run code like Python: Use the "Run (like Python)" button to execute your code directly in the IDE.
 • Python color scheme and smart indentation: Editor highlights Python keywords, strings, comments, and builtins, and auto-indents after colons for blocks.
 • Sarcastic errors and poetic output: Enjoy haikus and sassy remarks if you break the rules.
+• The compiler will sometimes pop words of wisdom after execution.
 """
 
 def show_features_popup():
