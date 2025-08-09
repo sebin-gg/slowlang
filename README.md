@@ -120,7 +120,7 @@ print("Done!")
 
 ## 🖼️ Screenshots
 
-![Screenshot1](screenshots/ide_window.png)
+![Screenshot1](https://drive.google.com/file/d/11mKm-JX4TPng84c43WK1i0IYZwzkHFVG/view?usp=sharing)
 *A fake IDE window showing turtle ASCII reacting to fast typing.*
 
 ![Screenshot2](screenshots/error_message.png)
