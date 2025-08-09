@@ -1,3 +1,5 @@
+from feature_popup import show_features_popup
+show_features_popup()
 import tkinter as tk
 from tkinter import messagebox
 from ascii_turtle import show_turtle_rage, show_turtle_just_right, show_turtle_too_slow
