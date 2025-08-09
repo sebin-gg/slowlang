@@ -120,23 +120,14 @@ print("Done!")
 
 ## 🖼️ Screenshots
 
-![Screenshot1](https://drive.google.com/uc?export=view&id=FILE_ID=1Ba5y2ptNzvYolx_A00O62SuwsWEJkqDN)  
-*A fake IDE window showing turtle ASCII reacting to fast typing.*
+![Screenshot1](https://github.com/sebin-gg/slowlang/blob/main/WhatsApp%20Image%202025-08-09%20at%206.21.15%20AM.jpeg?raw=true)  
+*Fake IDE window with turtle ASCII reacting to fast typing.*
 
-![Screenshot2](https://drive.google.com/uc?export=view&id=FILE_ID=1qLElTJa4aUZkYwygmY3sriWan_yTKU8l)  
+![Screenshot2](https://github.com/sebin-gg/slowlang/blob/main/Screenshot%202025-08-09%20063330.png?raw=true)  
 *Sarcastic error: "Whoa there, Shakespeare. Try again... slower."*
 
-![Screenshot3](https://drive.google.com/uc?export=view&id=FILE_ID=1-fUWa-ISiAdPaosTDovZZqDBx6mv_Xla)  
-*The "compiled" poetic output of your slow-written program.*
----
-
-## 📊 Diagram
-
-![Workflow](assets/workflow_diagram.png)
-*Workflow: Typing input → Typing speed tracker → Syntax validator →
-Turtle rage ASCII → Sarcastic error → Poetic output*
-
----
+![Screenshot3](https://github.com/sebin-gg/slowlang/blob/main/WhatsApp%20Image%202025-08-09%20at%206.23.28%20AM.jpeg?raw=true)  
+*"Compiled" poetic output of slow-written code.*
 
 ### 📹 Video
 
