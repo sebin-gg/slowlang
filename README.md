@@ -120,13 +120,13 @@ print("Done!")
 
 ## 🖼️ Screenshots
 
-![Screenshot1](https://drive.google.com/file/d/1Ba5y2ptNzvYolx_A00O62SuwsWEJkqDN/view?usp=sharing)  
+![Screenshot1](https://drive.google.com/uc?export=view&id=FILE_ID=1Ba5y2ptNzvYolx_A00O62SuwsWEJkqDN)  
 *A fake IDE window showing turtle ASCII reacting to fast typing.*
 
-![Screenshot2](https://drive.google.com/file/d/1qLElTJa4aUZkYwygmY3sriWan_yTKU8l/view?usp=sharing)  
+![Screenshot2](https://drive.google.com/uc?export=view&id=FILE_ID=1qLElTJa4aUZkYwygmY3sriWan_yTKU8l)  
 *Sarcastic error: "Whoa there, Shakespeare. Try again... slower."*
 
-![Screenshot3](https://drive.google.com/file/d/1-fUWa-ISiAdPaosTDovZZqDBx6mv_Xla/view?usp=sharing)  
+![Screenshot3](https://drive.google.com/uc?export=view&id=FILE_ID=1-fUWa-ISiAdPaosTDovZZqDBx6mv_Xla)  
 *The "compiled" poetic output of your slow-written program.*
 ---
 
