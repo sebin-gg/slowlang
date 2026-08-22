@@ -1,14 +1,16 @@
 from feature_popup import show_features_popup
+
 show_features_popup()
+import keyword
+import random
+import threading
+import time
 import tkinter as tk
 from tkinter import messagebox
-from ascii_turtle import show_turtle_rage, show_turtle_just_right, show_turtle_too_slow
+
+from ascii_turtle import show_turtle_just_right, show_turtle_rage, show_turtle_too_slow
 from sarcasm_engine import get_sarcastic_message
-import time
-import random
-import os
-import keyword
-import threading
+
 
 class PythonSyntaxText(tk.Text):
     """A Text widget with basic Python syntax highlighting and smart indentation."""
@@ -39,7 +41,6 @@ class PythonSyntaxText(tk.Text):
 
         lines = code.split('\n')
         for idx, line in enumerate(lines):
-            start = f"{idx+1}.0"
             # Highlight comments
             comment_idx = line.find('#')
             if comment_idx != -1:
@@ -202,10 +203,10 @@ class TortoiseIDE:
             from io import StringIO
             old_stdout = sys.stdout
             sys.stdout = mystdout = StringIO()
-            exec(text, {"please": please})
+            exec(text, {"please": please})  # noqa: S102 - intentional: TortoiseLang interpreter
             sys.stdout = old_stdout
             output_text.insert(tk.END, mystdout.getvalue())
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 - GUI must show any error to the user
             output_text.insert(tk.END, f"Error: {e}\n")
         finally:
             sys.stdout = old_stdout
@@ -226,58 +227,3 @@ if __name__ == "__main__":
     root.configure(bg="#1e1e1e")
     app = TortoiseIDE(root)
     root.mainloop()
-
-# Add to sarcasm_engine.py
-def get_sarcastic_message(theme="default"):
-    if theme == "lazy_turtle":
-        messages = [
-            "The turtle is napping. Try again later.",
-            "Why rush? The turtle needs a break.",
-            "Yawn... too much effort for the turtle."
-        ]
-    elif theme == "grumpy_mentor":
-        messages = [
-            "Back in my day, we typed slower.",
-            "You call that code? Try again, rookie.",
-            "Slow down, or you'll break something."
-        ]
-    else:
-        messages = [
-            "Oh wow, you're a real keyboard ninja, aren't you?",
-            "Slow down! The turtle’s about to sue you for emotional damage.",
-            "Your keyboard called. It needs a vacation."
-        ]
-    import random
-    return random.choice(messages)
-
-# In your ui-fakeide.py, replace the show_turtle_rage_window method with this:
-
-def show_turtle_rage_window(self):
-    if self.turtle_win is not None and tk.Toplevel.winfo_exists(self.turtle_win):
-        return  # Already open
-    self.turtle_win = tk.Toplevel(self.root)
-    self.turtle_win.title("🐢 Turtle Rage!")
-    self.turtle_win.geometry("400x250")
-    turtle = (
-        "               _____     ______\n"
-        "             < x   x >  /      \\ \n"
-        "              \\  -  /  |  O   O |\n"
-        "              /     \\  |   ∆    |\n"
-        "             |       | \\______/\n"
-        "            /| |   | |\\\n"
-        "           /_|_|___|_|_\\\n"
-        "            /_/     \\_\\\n"
-        "🐢 RAGE MODE: Turtle is not amused by your speed."
-    )
-    label = tk.Label(self.turtle_win, text=turtle, font=("Consolas", 10), fg="red", justify="left", bg="#1e1e1e")
-    label.pack(padx=10, pady=10)
-    # Prevent typing while angry
-    self.turtle_angry = True
-    self.editor.config(state=tk.DISABLED)
-    # Auto-close after 2 seconds and re-enable typing
-    def calm_turtle():
-        if self.turtle_win:
-            self.turtle_win.destroy()
-        self.turtle_angry = False
-        self.editor.config(state=tk.NORMAL)
-    self.turtle_win.after(2000, calm_turtle)

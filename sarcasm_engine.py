@@ -1,5 +1,6 @@
 import random
 
+
 def get_sarcastic_message(theme="default"):
     if theme == "lazy_turtle":
         messages = [

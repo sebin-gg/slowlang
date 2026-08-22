@@ -25,6 +25,6 @@ jobs:
           ruff check . || true
       - name: Compile check
         run: |
-          python -m compileall -q . || true
+          python -m compileall -q .
       - name: Test
-        run: python -m pytest -q || true
+        run: python -m pytest -q

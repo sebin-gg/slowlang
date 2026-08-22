@@ -1,7 +1,6 @@
-from typing_engine import TypingEngine
-from sarcasm_engine import get_sarcastic_message, get_poetic_output
 import random
 import sys
+
 
 def check_pleases(lines):
     """Check that 'please()' appears at random intervals in the code."""
@@ -33,7 +32,7 @@ def run_slowlang(filename):
     if not check_pleases(lines):
         print("🐢 Refusing to run rude code.")
         return
-    exec(code, {"please": please})
+    exec(code, {"please": please})  # noqa: S102 - intentional: language runtime
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

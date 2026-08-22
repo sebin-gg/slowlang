@@ -1,8 +1,15 @@
 import time
+
 import keyboard
+
 from ascii_turtle import show_turtle_rage
-from sarcasm_engine import get_sarcastic_remark
 from exporter import export_text
+from sarcasm_engine import get_sarcastic_remark
+
+
+class TypingSpeedError(Exception):
+    """Raised when the user types faster than the configured speed limit."""
+
 
 class TypingEngine:
     def __init__(self, speed_limit_wpm=30):
@@ -100,8 +107,8 @@ class TypingEngine:
                     self.error_triggered = True
                     show_turtle_rage()
                     print(get_sarcastic_remark())
-                    raise Exception(
-                        f"\n😤 Whoa there, Shakespeare!\n🧠 You're typing at {int(speed)} WPM!\n🐢 Slow down. This is TortoiseLang.\n"
+                    raise TypingSpeedError(
+                        f"\n?? Whoa there, Shakespeare!\n?? You're typing at {int(speed)} WPM!\n?? Slow down. This is TortoiseLang.\n"
                     )
 
                 if key == 'esc':
@@ -112,5 +119,5 @@ if __name__ == "__main__":
     engine = TypingEngine(speed_limit_wpm=30)
     try:
         engine.type_listener()
-    except Exception as e:
+    except TypingSpeedError as e:
         print(str(e))
