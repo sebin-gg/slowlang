@@ -161,3 +161,19 @@ print("Done!")
 Made with ❤️ at TinkerHub Useless Projects
 ![Badge](https://img.shields.io/badge/TinkerHub-24-black)
 ![Badge](https://img.shields.io/badge/UselessProjects--25-25)
+
+---
+
+## 📐 System Architecture
+
+`slowlang` uses a real-time event-driven engine to monitor keystroke velocity and enforce cadence:
+
+```mermaid
+graph LR
+    Key[Keystrokes] --> Engine[Typing Velocity Engine]
+    Engine --> Check{WPM > Limit?}
+    Check -- Yes --> Penalty[ASCII Rage & Delay]
+    Check -- No --> Zen[Haiku & Execution]
+```
+
+Detailed state machine diagrams and runtime architecture documented in [ARCHITECTURE.md](./ARCHITECTURE.md).
