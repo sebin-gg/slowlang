@@ -40,3 +40,4 @@ if __name__ == "__main__":
         print("Usage: python tortoise_lang.py <yourfile.slow>")
     else:
         run_slowlang(sys.argv[1])
+
