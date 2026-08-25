@@ -1,3 +1,4 @@
+from pathlib import Path
 import random
 import sys
 _rng = random.SystemRandom()
@@ -23,6 +24,12 @@ def please():
     print("🙏 The turtle thanks you for your politeness.")
 
 def run_slowlang(filename):
+    # Constrain file access to .slow/.py files under the current directory (S8707)
+    path = Path(filename).resolve()
+    if path.suffix not in {".slow", ".py"} or not path.is_relative_to(Path.cwd()):
+        print("?? TortoiseLang only reads .slow or .py files inside the current folder.")
+        return
+    filename = str(path)
     # 10% chance to refuse to run due to laziness
     if _rng.random() < 0.1:
         print("🐢 The TortoiseLang compiler is feeling lazy and refuses to run your code right now. Try again!")
