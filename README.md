@@ -51,10 +51,10 @@ It promotes *"patience-oriented programming"* with haikus, delays, and sarcastic
 ## ⚙️ Installation
 
 ```bash
-pip install keyboard time rich
+pip install -r requirements.txt
 ```
 
-> Tkinter comes with Python by default.
+> Tkinter comes with Python by default on Windows/macOS. On Linux, install via `sudo apt install python3-tk`.
 
 ---
 
