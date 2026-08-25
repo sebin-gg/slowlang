@@ -1,4 +1,5 @@
 import time
+_rng = random.SystemRandom()
 
 import keyboard
 
@@ -41,7 +42,7 @@ class TypingEngine:
         required_indices = []
         i = 0
         while i < len(lines):
-            step = random.randint(3, 7)
+            step = _rng.randint(3, 7)
             required_indices.append(i)
             i += step
 

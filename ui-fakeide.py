@@ -7,6 +7,7 @@ import threading
 import time
 import tkinter as tk
 from tkinter import messagebox
+_rng = random.SystemRandom()
 
 from ascii_turtle import show_turtle_just_right, show_turtle_rage, show_turtle_too_slow
 from sarcasm_engine import get_sarcastic_message
@@ -172,7 +173,7 @@ class TortoiseIDE:
 
     def run_code(self):
         # 10% chance to refuse to run due to laziness
-        if random.random() < 0.1 and not self.lazy_mode.get():
+        if _rng.random() < 0.1 and not self.lazy_mode.get():
             messagebox.showwarning("Turtle is Lazy", "🐢 The turtle is feeling lazy and refuses to run your code right now. Try again!")
             return
 
@@ -215,9 +216,9 @@ class TortoiseIDE:
         output_text.insert(tk.END, "\n✨ Poetic wisdom:\n" + get_poetic_output() + "\n")
 
         # Show turtle satisfaction or dissatisfaction
-        if random.random() < 0.2:
+        if _rng.random() < 0.2:
             show_turtle_rage()
-        elif random.random() < 0.5:
+        elif _rng.random() < 0.5:
             show_turtle_too_slow()
         else:
             show_turtle_just_right()

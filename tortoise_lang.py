@@ -1,5 +1,6 @@
 import random
 import sys
+_rng = random.SystemRandom()
 
 
 def check_pleases(lines):
@@ -7,7 +8,7 @@ def check_pleases(lines):
     required_indices = []
     i = 0
     while i < len(lines):
-        step = random.randint(3, 7)
+        step = _rng.randint(3, 7)
         required_indices.append(i)
         i += step
 
@@ -23,7 +24,7 @@ def please():
 
 def run_slowlang(filename):
     # 10% chance to refuse to run due to laziness
-    if random.random() < 0.1:
+    if _rng.random() < 0.1:
         print("🐢 The TortoiseLang compiler is feeling lazy and refuses to run your code right now. Try again!")
         return
     with open(filename, encoding="utf-8") as f:
