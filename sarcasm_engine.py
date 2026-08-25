@@ -1,4 +1,5 @@
 import random
+_rng = random.SystemRandom()
 
 
 def get_sarcastic_message(theme="default"):
@@ -27,7 +28,7 @@ def get_sarcastic_message(theme="default"):
             "Ever heard of slow food? This is slow code.",
             "Your code has officially outpaced human patience."
         ]
-    return random.choice(messages)
+    return _rng.choice(messages)
 
 def get_sarcastic_remark():
     # Alias for compatibility with typing_engine.py
@@ -56,4 +57,4 @@ def get_poetic_output():
         "Shift. Return. Escape.\nNone will help your case here.\nSlow down or regret.",
         "The screen glares at you,\nSilently judging your haste—\nSlow. Compose. Retry."
     ]
-    return random.choice(haikus)
+    return _rng.choice(haikus)

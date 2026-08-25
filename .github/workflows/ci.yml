@@ -21,12 +21,12 @@ jobs:
           python-version: '3.12'
       - name: Lint
         run: |
-          python -m pip install --quiet ruff
+          python -m pip install --quiet ruff==0.14.4
           ruff check . || true
       - name: Compile check
         run: |
           python -m compileall -q .
       - name: Test
         run: |
-          python -m pip install --quiet pytest
+          python -m pip install --quiet pytest==8.3.4
           python -m pytest -q
