@@ -56,9 +56,13 @@ print("Done!")</textarea>
       </div>
 
       <p class="status" id="status" role="status" aria-live="polite">Slow and steady…</p>
+      <p class="streak" id="streak">Rage-free runs will build your gentle streak.</p>
+      <p class="net-note" id="net-note" hidden>You’re offline — runs use the tiny fallback runner.</p>
 
       <div class="controls">
         <button type="button" id="run-btn" class="btn btn-primary">Run (like Python)</button>
+        <button type="button" id="copy-btn" class="btn">Copy output</button>
+        <button type="button" id="haiku-btn" class="btn">Copy haiku</button>
         <button type="button" id="clear-btn" class="btn">Clear output</button>
         <label class="lazy">
           <input type="checkbox" id="lazy-mode" />
@@ -75,6 +79,11 @@ print("Done!")</textarea>
 
       <label class="field-label" for="output">Output</label>
       <pre class="output" id="output" tabindex="0" aria-live="polite">Slow and steady… output lands here.</pre>
+
+      <details class="diary">
+        <summary id="diary-summary">Rage diary (0)</summary>
+        <ul id="diary-list"></ul>
+      </details>
     </section>
 
     <section class="how" id="how" aria-labelledby="how-title">

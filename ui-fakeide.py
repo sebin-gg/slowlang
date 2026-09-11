@@ -109,6 +109,8 @@ class TortoiseIDE:
         self.turtle_angry = False
         self.key_times = []
         self._rage_remaining = 0
+        self.gentle_streak = 0
+        self.raged_since_run = False
 
         editor_frame = tk.Frame(root, bg="#1e1e1e")
         editor_frame.pack(pady=10)
@@ -164,6 +166,7 @@ class TortoiseIDE:
         self.countdown.pack(pady=(0, 10))
         # Prevent typing while angry
         self.turtle_angry = True
+        self.raged_since_run = True
         self.editor.config(state=tk.DISABLED)
         # Closing the popup early still ends the lockout cleanly
         self.turtle_win.protocol("WM_DELETE_WINDOW", self.calm_turtle)
@@ -295,6 +298,14 @@ class TortoiseIDE:
             show_turtle_too_slow()
         else:
             show_turtle_just_right()
+        if self.raged_since_run:
+            self.gentle_streak = 0
+        else:
+            self.gentle_streak += 1
+        self.raged_since_run = False
+        if self.gentle_streak > 0:
+            runs = "run" if self.gentle_streak == 1 else "runs"
+            self.output.config(text=f"Gentle streak: {self.gentle_streak} rage-free {runs} 🐢", fg="green")
         self.run_btn.config(state=tk.NORMAL)
 
 if __name__ == "__main__":

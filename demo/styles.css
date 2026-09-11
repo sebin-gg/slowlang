@@ -196,6 +196,19 @@ a:hover { text-decoration-thickness: 2px; }
 .status.is-calm { color: var(--calm); }
 .status.is-steady { color: var(--keyword); }
 
+.streak { font-size: 14px; color: var(--ink-soft); margin: 0 0 var(--space-2); }
+
+.net-note {
+  font-size: 14px;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  margin: 0 0 var(--space-3);
+}
+
+.net-note[hidden] { display: none; }
+
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -269,6 +282,20 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 .output-error { color: var(--danger); }
+
+.diary { margin-top: var(--space-4); font-size: 14px; }
+
+.diary summary { cursor: pointer; color: var(--ink-soft); }
+
+.diary ul {
+  margin: var(--space-2) 0 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+  max-height: 160px;
+  overflow: auto;
+}
+
+.diary li { margin-bottom: var(--space-1); }
 
 .how { padding-bottom: var(--space-4); }
 
@@ -352,6 +379,12 @@ a:hover { text-decoration-thickness: 2px; }
 @media (max-width: 640px) {
   .hero h1 { font-size: 24px; }
   .ide { padding: var(--space-3); }
+  /* Wrap long lines on small screens; both layers share the rule. */
+  .editor,
+  .editor-highlight {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
