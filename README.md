@@ -2,6 +2,8 @@
 
 # 🐢 slowLang – Slower is Better
 
+**🌐 Try it in your browser, no install: https://sebin-gg.github.io/slowlang/**
+
 A **sarcastic programming language** and IDE that throws errors if you type too fast.  
 Complete with a screaming ASCII turtle, poetic output, and a sassy, minimalistic Python IDE.  
 Why rush, when your code can feel... meaningful?
@@ -60,7 +62,13 @@ pip install -r requirements.txt
 
 ## ▶️ How to Run
 
-### **Start the IDE:**
+### **Try the web demo (easiest):**
+
+Open **https://sebin-gg.github.io/slowlang/** — the full IDE in your browser,
+same turtle, same rage, zero install. The desktop and web versions enforce
+identical rules.
+
+### **Start the desktop IDE:**
 
 ```bash
 python ui-fakeide.py
@@ -103,7 +111,10 @@ python ui-fakeide.py
    - If you type too fast, a turtle rage popup will appear and sarcastic feedback will be shown.
    - If you slow down, the turtle will be happy.
 3. **Run your code:**
-   - Click "Run (like Python)" to execute your code in the IDE.  
+    - Click "Run (like Python)" to execute your code in the IDE.  
+
+To preview the web demo locally: `python3 -m http.server --directory demo`,
+then open http://localhost:8000.
 
 ---
 

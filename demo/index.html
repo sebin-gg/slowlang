@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TortoiseLang IDE — slowLang web demo 🐢</title>
+  <meta name="description" content="Try slowLang in your browser: a sarcastic programming IDE that throws turtle rage if you type too fast. No install needed." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#editor">Skip to editor</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <p class="brand">🐢 TortoiseLang IDE</p>
+      <nav aria-label="Demo links">
+        <a href="https://github.com/sebin-gg/slowlang">GitHub repo</a>
+        <a href="#how">How it works</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">Slower is better.</h1>
+      <p>
+        This is the browser version of the slowLang fake IDE. Type too fast and the
+        turtle gets angry. Type with patience and it runs your Python, then answers
+        with poetry. No install, nothing leaves your machine.
+      </p>
+    </section>
+
+    <section class="ide" aria-label="TortoiseLang web IDE">
+      <div class="ide-bar">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="ide-title">tortoise_ide — web demo</span>
+      </div>
+
+      <label class="field-label" for="editor">Editor <span class="hint">(type here — speed is being watched)</span></label>
+      <div class="editor-stack">
+        <pre class="editor-highlight" id="highlight" aria-hidden="true"><code id="highlight-code"></code></pre>
+        <textarea
+          id="editor"
+          class="editor"
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off"
+          rows="14"
+        >print("Hello, world!")
+for i in range(3):
+    print(i)
+please()
+print("Done!")</textarea>
+      </div>
+
+      <p class="status" id="status" role="status" aria-live="polite">Slow and steady…</p>
+
+      <div class="controls">
+        <button type="button" id="run-btn" class="btn btn-primary">Run (like Python)</button>
+        <button type="button" id="clear-btn" class="btn">Clear output</button>
+        <label class="lazy">
+          <input type="checkbox" id="lazy-mode" />
+          Lazy Mode
+        </label>
+      </div>
+
+      <div class="compile" id="compile" hidden>
+        <p class="compile-label">Compiling slowly…</p>
+        <div class="compile-track" role="progressbar" aria-label="Compiling slowly" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="compile-bar-wrap">
+          <div class="compile-fill" id="compile-fill"></div>
+        </div>
+      </div>
+
+      <label class="field-label" for="output">Output</label>
+      <pre class="output" id="output" tabindex="0" aria-live="polite">Slow and steady… output lands here.</pre>
+    </section>
+
+    <section class="how" id="how" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <dl>
+        <dt>Type slower than 0.1&nbsp;s per key</dt>
+        <dd>Faster than that and a turtle-rage window locks the editor for two seconds.</dd>
+        <dt>Stay calmer than 0.5&nbsp;s per key</dt>
+        <dd>The turtle is proud. Anything in between is “steady typing”.</dd>
+        <dt>Press Run</dt>
+        <dd>Your code runs as Python right in the page (via Pyodide), with
+        <code>please()</code> built in — then the compiler answers with a haiku.</dd>
+        <dt>Lazy Mode</dt>
+        <dd>Forgives fast fingers and stops the compiler’s 1-in-10 lazy refusals.</dd>
+      </dl>
+      <p class="repo-line">Prefer the desktop original? <a href="https://github.com/sebin-gg/slowlang">Get slowLang on GitHub</a> — <code>python ui-fakeide.py</code> and type gently.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Made with patience by the slowLang crew 🐢 · <a href="https://github.com/sebin-gg/slowlang">sebin-gg/slowlang</a></p>
+    </div>
+  </footer>
+
+  <dialog id="intro" class="modal" aria-labelledby="intro-title">
+    <h2 id="intro-title">Welcome to TortoiseLang!</h2>
+    <div class="modal-body">
+      <p>🐢 TortoiseLang – Slower is Better</p>
+      <ul>
+        <li>Python-like syntax: write code just like Python.</li>
+        <li>Speed enforcement: typing too fast triggers sarcastic errors and turtle rage.</li>
+        <li>Sarcastic feedback: sassy remarks and poetic haikus if you break the rules.</li>
+        <li>Run code like Python with the “Run (like Python)” button.</li>
+        <li>The compiler sometimes pops words of wisdom after execution.</li>
+      </ul>
+      <p class="warn">Close the rage window early and you lose your right to code. (Not really. The turtle just judges you.)</p>
+    </div>
+    <form method="dialog">
+      <button class="btn btn-primary" value="ok" autofocus>Continue to IDE</button>
+    </form>
+  </dialog>
+
+  <div class="rage-backdrop" id="rage" hidden>
+    <div class="rage-box" role="alertdialog" aria-labelledby="rage-title" aria-describedby="rage-desc">
+      <h2 id="rage-title">🐢 Turtle Rage!</h2>
+      <pre id="rage-desc">               _____     ______
+             &lt; x   x &gt;  /      \
+              \  -  /  |  O   O |
+              /     \  |   ∆    |
+             |       | \______/
+            /| |   | |\
+           /_|_|___|_|_\
+            /_/     \_\
+RAGE MODE: Turtle is not amused by your speed.</pre>
+    </div>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
