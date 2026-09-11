@@ -32,6 +32,11 @@ def test_check_pleases_accepts_polite_code():
     assert check_pleases(lines) is True
 
 
+def test_check_pleases_rejects_rude_code(capsys):
+    assert check_pleases(["print('hi')"] * 20) is False
+    assert "too rude" in capsys.readouterr().out
+
+
 def test_loading_quotes_cycle_deterministically():
     assert len(LOADING_QUOTES) == 10
     assert all(isinstance(q, str) and q for q in LOADING_QUOTES)
