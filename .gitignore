@@ -18,3 +18,4 @@ Thumbs.db
 # coverage artifacts
 .coverage
 coverage.xml
+coverage.lcov

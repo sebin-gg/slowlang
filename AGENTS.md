@@ -10,7 +10,7 @@ in both.
 - `python ui-fakeide.py` — desktop IDE (needs Tkinter; on Linux: `sudo apt install python3-tk`)
 - `python -m pytest -q` — test gate (install: `python -m pip install -r requirements.txt`)
 - `python -m compileall -q .` — syntax gate
-- `node --check demo/app.js` — demo syntax gate
+- `node --test tests/demo_smoke.mjs` — demo logic gate (also `node --check demo/app.js`)
 - Serve the demo: `python3 -m http.server --directory demo`
 
 ## Agent skills (borrowed from the `sebin-gg resume` repo)

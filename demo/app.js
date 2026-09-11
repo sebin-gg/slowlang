@@ -285,11 +285,16 @@ editor.addEventListener("keydown", function (ev) {
 });
 
 /* --- Fake compile bar (ports fake_loading) --- */
+var compileRunCount = 0;
+
 function pickRunQuotes() {
-  var pool = COMPILE_QUOTES.slice();
+  // Deterministic rotation mirroring the desktop loader: varied every run,
+  // no random number generator involved.
+  var start = (compileRunCount * 4) % COMPILE_QUOTES.length;
+  compileRunCount += 1;
   var out = [];
-  while (out.length < 4 && pool.length) {
-    out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+  for (var k = 0; k < 4; k++) {
+    out.push(COMPILE_QUOTES[(start + k) % COMPILE_QUOTES.length]);
   }
   return out;
 }
