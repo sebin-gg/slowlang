@@ -10,6 +10,7 @@ _rng = random.SystemRandom()
 
 from ascii_turtle import show_turtle_just_right, show_turtle_rage, show_turtle_too_slow
 from sarcasm_engine import get_loading_quote, get_sarcastic_message
+from tortoise_lang import check_pleases
 from typing_engine import wpm_from_timestamps
 
 SAMPLE_CODE = '''print("Hello, world!")
@@ -109,10 +110,17 @@ class TortoiseIDE:
         self.key_times = []
         self._rage_remaining = 0
 
-        self.editor = PythonSyntaxText(root, height=15, width=70, font=("Consolas", 12), bg="#1e1e1e", fg="#d4d4d4", insertbackground="#d4d4d4")
-        self.editor.pack(pady=10)
+        editor_frame = tk.Frame(root, bg="#1e1e1e")
+        editor_frame.pack(pady=10)
+        self.gutter = tk.Text(editor_frame, width=4, height=15, font=("Consolas", 12), bg="#252526", fg="#858585", state=tk.DISABLED, wrap=tk.NONE, borderwidth=0, highlightthickness=0, takefocus=0)
+        self.gutter.pack(side=tk.LEFT, fill=tk.Y)
+        self.editor = PythonSyntaxText(editor_frame, height=15, width=70, font=("Consolas", 12), bg="#1e1e1e", fg="#d4d4d4", insertbackground="#d4d4d4", borderwidth=0, highlightthickness=0)
+        self.editor.pack(side=tk.LEFT)
         self.editor.bind("<Key>", self.track_speed)
         self.editor.bind("<Key>", self.prevent_typing_when_angry, add='+')
+        self.editor.bind("<KeyRelease>", lambda e: self.refresh_gutter(), add='+')
+        self.editor.config(yscrollcommand=self._sync_gutter_scroll)
+        self.refresh_gutter()
 
         self.output = tk.Label(root, text="Slow and steady...", font=("Consolas", 12), fg="green", bg="#1e1e1e")
         self.output.pack()
@@ -179,6 +187,17 @@ class TortoiseIDE:
         self.editor.config(state=tk.NORMAL)
         self.editor.focus_set()
 
+    def refresh_gutter(self):
+        lines = int(self.editor.index("end-1c").split(".")[0])
+        self.gutter.config(state=tk.NORMAL)
+        self.gutter.delete("1.0", tk.END)
+        self.gutter.insert("1.0", "\n".join(str(i) for i in range(1, lines + 1)))
+        self.gutter.config(state=tk.DISABLED)
+        self._sync_gutter_scroll(*self.editor.yview())
+
+    def _sync_gutter_scroll(self, first, last):
+        self.gutter.yview_moveto(first)
+
     def prevent_typing_when_angry(self, event):
         if self.turtle_angry:
             return "break"
@@ -211,6 +230,7 @@ class TortoiseIDE:
         self.editor.delete("1.0", tk.END)
         self.editor.insert("1.0", SAMPLE_CODE)
         self.editor.highlight()
+        self.refresh_gutter()
         self.output.config(text="Sample loaded. Type it gently 🐢", fg="green")
 
     def run_code(self):
@@ -246,6 +266,10 @@ class TortoiseIDE:
         output_win.title("Output")
         output_text = tk.Text(output_win, height=15, width=70, font=("Consolas", 12), bg="#1e1e1e", fg="#d4d4d4")
         output_text.pack()
+        if not check_pleases(text.splitlines()):
+            output_text.insert(tk.END, "🐢 Refusing to run rude code. Add more 'please()' calls!\n")
+            self.run_btn.config(state=tk.NORMAL)
+            return
         def please():
             output_text.insert(tk.END, "🙏 The turtle thanks you for your politeness.\n")
         try:

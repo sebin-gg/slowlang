@@ -132,6 +132,8 @@ var compileLabel = document.getElementById("compile-label");
 var compileFill = document.getElementById("compile-fill");
 var compileWrap = document.getElementById("compile-bar-wrap");
 var rageEl = document.getElementById("rage");
+var rageCount = document.getElementById("rage-count");
+var moodFace = document.getElementById("mood-face");
 var introEl = document.getElementById("intro");
 
 var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -205,21 +207,36 @@ function setStatus(text, mood) {
   statusEl.textContent = text;
   statusEl.classList.remove("is-rage", "is-calm", "is-steady");
   if (mood) statusEl.classList.add(mood);
+  var faces = { "is-rage": "🐢💢", "is-calm": "🐢💚", "is-steady": "🐢" };
+  moodFace.textContent = faces[mood || ""] || "🐢";
 }
 
 /* --- Turtle rage lockout (ports show_turtle_rage_window) --- */
 var rageTimer = null;
+var rageCountTimer = null;
 
 function showRage() {
   if (!rageEl.hidden) return;
   rageEl.hidden = false;
   turtleAngry = true;
   editor.disabled = true;
+  var remaining = 2;
+  rageCount.textContent = "Typing unlocks in 2…";
+  clearInterval(rageCountTimer);
+  rageCountTimer = setInterval(function () {
+    remaining -= 1;
+    if (remaining <= 0) {
+      clearInterval(rageCountTimer);
+      return;
+    }
+    rageCount.textContent = "Typing unlocks in " + remaining + "…";
+  }, 1000);
   clearTimeout(rageTimer);
   rageTimer = setTimeout(calmTurtle, 2000);
 }
 
 function calmTurtle() {
+  clearInterval(rageCountTimer);
   rageEl.hidden = true;
   turtleAngry = false;
   editor.disabled = false;
@@ -268,6 +285,15 @@ editor.addEventListener("keydown", function (ev) {
 });
 
 /* --- Fake compile bar (ports fake_loading) --- */
+function pickRunQuotes() {
+  var pool = COMPILE_QUOTES.slice();
+  var out = [];
+  while (out.length < 4 && pool.length) {
+    out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+  }
+  return out;
+}
+
 function fakeCompile() {
   compileBox.hidden = false;
   if (reduceMotion) {
@@ -278,13 +304,15 @@ function fakeCompile() {
   }
   return new Promise(function (resolve) {
     var i = 0;
+    var runQuotes = pickRunQuotes();
     compileFill.style.width = "0%";
-    compileLabel.textContent = compileQuote(0);
+    compileLabel.textContent = runQuotes[0];
     var tick = setInterval(function () {
       i += 1;
       compileFill.style.width = (i * 10) + "%";
       compileWrap.setAttribute("aria-valuenow", String(i));
-      compileLabel.textContent = compileQuote(i - 1);
+      // New joke roughly every 450 ms so each one can actually be read.
+      compileLabel.textContent = runQuotes[Math.min(3, Math.floor((i - 1) / 3))];
       if (i >= 10) {
         clearInterval(tick);
         resolve();
@@ -386,6 +414,7 @@ runBtn.addEventListener("click", async function () {
   runBtn.disabled = true;
   runBtn.textContent = "Running…";
   setStatus("Running your code… the turtle is on it 🐢", "is-steady");
+  moodFace.textContent = "🐢💨";
   try {
     await fakeCompile();
     var code = editor.value;

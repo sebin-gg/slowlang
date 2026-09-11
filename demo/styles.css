@@ -343,6 +343,12 @@ a:hover { text-decoration-thickness: 2px; }
   overflow-x: auto;
 }
 
+.rage-count {
+  margin: var(--space-3) 0 0;
+  color: var(--danger);
+  font-size: 14px;
+}
+
 @media (max-width: 640px) {
   .hero h1 { font-size: 24px; }
   .ide { padding: var(--space-3); }
