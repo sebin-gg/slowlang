@@ -10,7 +10,7 @@ from tkinter import messagebox
 _rng = random.SystemRandom()
 
 from ascii_turtle import show_turtle_just_right, show_turtle_rage, show_turtle_too_slow
-from sarcasm_engine import get_sarcastic_message
+from sarcasm_engine import get_loading_quote, get_sarcastic_message
 
 
 class PythonSyntaxText(tk.Text):
@@ -179,9 +179,12 @@ class TortoiseIDE:
             loading = tk.Toplevel(self.root)
             loading.title("Compiling Slowly...")
             bar = tk.Label(loading, text="Compiling slowly... [          ]", font=("Consolas", 12))
-            bar.pack(padx=20, pady=20)
+            bar.pack(padx=20, pady=(20, 5))
+            quote = tk.Label(loading, text=get_loading_quote(0), font=("Consolas", 11))
+            quote.pack(padx=20, pady=(0, 20))
             for i in range(1, 11):
                 bar.config(text=f"Compiling slowly... [{'='*i}{' '*(10-i)}]")
+                quote.config(text=get_loading_quote(i - 1))
                 loading.update()
                 time.sleep(0.15)
             loading.destroy()

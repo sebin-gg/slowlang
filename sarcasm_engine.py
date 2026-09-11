@@ -55,6 +55,33 @@ def get_poetic_output():
         "A furious tap,\nBrings forth compiler fury—\nPatience is your shield.",
         "Racing through functions,\nSyntax collapses in fear—\nSlow is beautiful.",
         "Shift. Return. Escape.\nNone will help your case here.\nSlow down or regret.",
-        "The screen glares at you,\nSilently judging your haste—\nSlow. Compose. Retry."
+        "The screen glares at you,\nSilently judging your haste—\nSlow. Compose. Retry.",
+
+        # Slow-batch additions
+        "You typed like thunder,\nthe turtle filed a complaint —\ncase still pending.",
+        "Fast fingers falter,\nslow fingers ship on Friday —\nthe turtle nods.",
+        "Rubber duck asleep,\nturtle awake and judging —\nexplain it slower.",
+        "Zero errors found.\nThe turtle takes full credit.\nYou may thank him now.",
+        "A watched pot won't boil;\nwatched code won't ship either.\nType gently anyway.",
+        "Your loop ran eleven\ntimes instead of ten. Slow down.\nCount with the turtle."
     ]
     return _rng.choice(haikus)
+
+
+LOADING_QUOTES = [
+    "Waking the turtle…",
+    "Brewing patience…",
+    "Counting your keystrokes (slowly)…",
+    "Teaching semicolons manners…",
+    "Consulting ancient tortoise wisdom…",
+    "Polishing haikus…",
+    "Asking the compiler for a favor…",
+    "Untangling your indentation…",
+    "Convincing the turtle you meant that…",
+    "Almost there. No rushing.",
+]
+
+
+def get_loading_quote(step=0):
+    """Deterministic rotating quote for progress bars (step = bar tick)."""
+    return LOADING_QUOTES[step % len(LOADING_QUOTES)]

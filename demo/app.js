@@ -41,8 +41,32 @@ var HAIKUS = [
   "A furious tap,\nBrings forth compiler fury—\nPatience is your shield.",
   "Racing through functions,\nSyntax collapses in fear—\nSlow is beautiful.",
   "Shift. Return. Escape.\nNone will help your case here.\nSlow down or regret.",
-  "The screen glares at you,\nSilently judging your haste—\nSlow. Compose. Retry."
+  "The screen glares at you,\nSilently judging your haste—\nSlow. Compose. Retry.",
+  "You typed like thunder,\nthe turtle filed a complaint —\ncase still pending.",
+  "Fast fingers falter,\nslow fingers ship on Friday —\nthe turtle nods.",
+  "Rubber duck asleep,\nturtle awake and judging —\nexplain it slower.",
+  "Zero errors found.\nThe turtle takes full credit.\nYou may thank him now.",
+  "A watched pot won't boil;\nwatched code won't ship either.\nType gently anyway.",
+  "Your loop ran eleven\ntimes instead of ten. Slow down.\nCount with the turtle."
 ];
+
+/* --- Loader quotes (ported from sarcasm_engine.py — keep lists identical) --- */
+var COMPILE_QUOTES = [
+  "Waking the turtle…",
+  "Brewing patience…",
+  "Counting your keystrokes (slowly)…",
+  "Teaching semicolons manners…",
+  "Consulting ancient tortoise wisdom…",
+  "Polishing haikus…",
+  "Asking the compiler for a favor…",
+  "Untangling your indentation…",
+  "Convincing the turtle you meant that…",
+  "Almost there. No rushing."
+];
+
+function compileQuote(step) {
+  return COMPILE_QUOTES[step % COMPILE_QUOTES.length];
+}
 
 /* --- Turtles (ported from ascii_turtle.py) --- */
 var TURTLE_RAGE = [
@@ -104,6 +128,7 @@ var runBtn = document.getElementById("run-btn");
 var clearBtn = document.getElementById("clear-btn");
 var lazyBox = document.getElementById("lazy-mode");
 var compileBox = document.getElementById("compile");
+var compileLabel = document.getElementById("compile-label");
 var compileFill = document.getElementById("compile-fill");
 var compileWrap = document.getElementById("compile-bar-wrap");
 var rageEl = document.getElementById("rage");
@@ -248,15 +273,18 @@ function fakeCompile() {
   if (reduceMotion) {
     compileFill.style.width = "100%";
     compileWrap.setAttribute("aria-valuenow", "10");
+    compileLabel.textContent = compileQuote(COMPILE_QUOTES.length - 1);
     return Promise.resolve();
   }
   return new Promise(function (resolve) {
     var i = 0;
     compileFill.style.width = "0%";
+    compileLabel.textContent = compileQuote(0);
     var tick = setInterval(function () {
       i += 1;
       compileFill.style.width = (i * 10) + "%";
       compileWrap.setAttribute("aria-valuenow", String(i));
+      compileLabel.textContent = compileQuote(i - 1);
       if (i >= 10) {
         clearInterval(tick);
         resolve();
@@ -356,6 +384,8 @@ runBtn.addEventListener("click", async function () {
   }
   outputEl.classList.remove("output-error");
   runBtn.disabled = true;
+  runBtn.textContent = "Running…";
+  setStatus("Running your code… the turtle is on it 🐢", "is-steady");
   try {
     await fakeCompile();
     var code = editor.value;
@@ -392,7 +422,9 @@ runBtn.addEventListener("click", async function () {
     compileBox.hidden = true;
     compileFill.style.width = "0%";
     compileWrap.setAttribute("aria-valuenow", "0");
+    compileLabel.textContent = "Compiling slowly…";
     runBtn.disabled = false;
+    runBtn.textContent = "Run (like Python)";
   }
 });
 
@@ -414,6 +446,8 @@ if (typeof window !== "undefined") {
     runWithFallback: runWithFallback,
     highlightLine: highlightLine,
     sarcasticMessage: sarcasticMessage,
-    poeticOutput: poeticOutput
+    poeticOutput: poeticOutput,
+    compileQuote: compileQuote,
+    compileQuotes: COMPILE_QUOTES
   };
 }
