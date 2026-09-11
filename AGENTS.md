@@ -18,11 +18,10 @@ in both.
 Skills live in that repo under `.agents/skills/`. Load the SKILL.md there before
 relying on one here. The ones this repo expects:
 
-1. **`designing-beautiful-websites`** — load before any `demo/` UI work.
-2. **`unslop`** — audit pass before and after touching user-visible copy
+1. **`unslop`** — audit pass before and after touching user-visible copy
    (README, demo text, haikus). Sarcasm strings are the authors’ jokes:
    never rewrite them, only check new copy around them.
-3. **`caveman`** — terse replies. Default mode for agents working here.
+2. **`caveman`** — terse replies. Default mode for agents working here.
 
 ## Rules
 
