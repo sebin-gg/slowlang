@@ -9,6 +9,7 @@ import { createRequire } from "node:module";
 
 function stubEl() {
   const handlers = {};
+  const kids = [];
   return {
     __handlers: handlers,
     addEventListener: (type, fn) => {
@@ -19,6 +20,21 @@ function stubEl() {
     focus() {},
     click: async function () {
       for (const fn of handlers.click || []) await fn();
+    },
+    appendChild: (c) => {
+      kids.push(c);
+      return c;
+    },
+    removeChild: (c) => {
+      const i = kids.indexOf(c);
+      if (i !== -1) kids.splice(i, 1);
+      return c;
+    },
+    get firstChild() {
+      return kids[0] || null;
+    },
+    get childCount() {
+      return kids.length;
     },
     classList: { add() {}, remove() {} },
     style: {},
@@ -47,6 +63,28 @@ globalThis.document = {
 };
 globalThis.window = globalThis;
 globalThis.matchMedia = () => ({ matches: false });
+
+const windowListeners = {};
+globalThis.addEventListener = (type, fn) => {
+  (windowListeners[type] ||= []).push(fn);
+};
+globalThis.removeEventListener = () => {};
+globalThis.dispatchTestEvent = (type) => {
+  for (const fn of windowListeners[type] || []) fn();
+};
+
+let copied = null;
+Object.defineProperty(globalThis, "navigator", {
+  value: {
+    onLine: true,
+    clipboard: {
+      writeText: async (t) => {
+        copied = t;
+      },
+    },
+  },
+  configurable: true,
+});
 
 const require = createRequire(import.meta.url);
 require("../demo/app.js");
@@ -143,5 +181,33 @@ test("run executes code, shows wisdom and restores the button", async () => {
   assert.ok(el("output").textContent.includes("turtle thanks you"));
   assert.ok(el("output").textContent.includes("Poetic wisdom"));
   assert.ok(el("output").textContent.includes("🐢"));
+  // A rage happened earlier in this suite, so this run resets the streak…
+  assert.ok(el("streak").textContent.includes("build your gentle streak"));
+  // …and a second calm run starts one.
+  await el("run-btn").click();
+  assert.ok(el("streak").textContent.includes("Gentle streak: 1"));
   delete globalThis.loadPyodide;
+});
+
+test("offline note toggles", () => {
+  api.updateNetNote(false);
+  assert.equal(el("net-note").hidden, false);
+  api.updateNetNote(true);
+  assert.equal(el("net-note").hidden, true);
+  globalThis.dispatchTestEvent("online");
+  assert.equal(el("net-note").hidden, true);
+});
+
+test("copy buttons hand text to the clipboard", async () => {
+  await el("copy-btn").__handlers.click[0]();
+  assert.ok(copied.includes("hello from python"));
+  assert.ok(el("status").textContent.includes("witnessed it"));
+  await el("haiku-btn").__handlers.click[0]();
+  assert.ok(copied.includes("\n"));
+  assert.ok(el("status").textContent.includes("Haiku copied"));
+});
+
+test("diary records rages and runs", () => {
+  assert.ok(el("diary-summary").textContent.includes("Rage diary (3)"));
+  assert.equal(el("diary-list").childCount, 3);
 });

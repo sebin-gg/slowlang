@@ -134,6 +134,12 @@ var compileWrap = document.getElementById("compile-bar-wrap");
 var rageEl = document.getElementById("rage");
 var rageCount = document.getElementById("rage-count");
 var moodFace = document.getElementById("mood-face");
+var streakEl = document.getElementById("streak");
+var netNote = document.getElementById("net-note");
+var copyBtn = document.getElementById("copy-btn");
+var haikuBtn = document.getElementById("haiku-btn");
+var diarySummary = document.getElementById("diary-summary");
+var diaryList = document.getElementById("diary-list");
 var introEl = document.getElementById("intro");
 
 var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -142,6 +148,50 @@ var lastTime = performance.now() / 1000;
 var turtleAngry = false;
 var pyodide = null;
 var pyodideFailed = false;
+
+/* Gentle streak (rage-free runs), persisted when storage is available. */
+var memoryStore = {};
+var store = {
+  get: function (k) {
+    try { return window.localStorage.getItem(k); }
+    catch (e) { return Object.prototype.hasOwnProperty.call(memoryStore, k) ? memoryStore[k] : null; }
+  },
+  set: function (k, v) {
+    try { window.localStorage.setItem(k, v); }
+    catch (e) { memoryStore[k] = v; }
+  }
+};
+var gentleStreak = parseInt(store.get("slowlang-gentle-streak") || "0", 10) || 0;
+var ragedSinceRun = false;
+var lastHaiku = "";
+var diary = [];
+
+function renderStreak() {
+  streakEl.textContent = gentleStreak > 0
+    ? "Gentle streak: " + gentleStreak + " rage-free run" + (gentleStreak === 1 ? "" : "s") + " 🐢"
+    : "Rage-free runs will build your gentle streak.";
+}
+
+function logDiary(text) {
+  diary.unshift({ at: new Date(), text: text });
+  if (diary.length > 20) diary.length = 20;
+  diarySummary.textContent = "Rage diary (" + diary.length + ")";
+  while (diaryList.firstChild) diaryList.removeChild(diaryList.firstChild);
+  diary.forEach(function (entry) {
+    var li = document.createElement("li");
+    li.textContent = entry.at.toLocaleTimeString() + " — " + entry.text;
+    diaryList.appendChild(li);
+  });
+}
+
+function updateNetNote(online) {
+  netNote.hidden = online;
+}
+
+function refreshNetNote() {
+  var online = typeof navigator === "undefined" ? true : navigator.onLine !== false;
+  updateNetNote(online);
+}
 
 function pick(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -219,6 +269,8 @@ function showRage() {
   if (!rageEl.hidden) return;
   rageEl.hidden = false;
   turtleAngry = true;
+  ragedSinceRun = true;
+  logDiary("Turtle raged — typing too fast.");
   editor.disabled = true;
   var remaining = 2;
   rageCount.textContent = "Typing unlocks in 2…";
@@ -413,6 +465,7 @@ runBtn.addEventListener("click", async function () {
   if (Math.random() < 0.1 && !lazyBox.checked) {
     outputEl.textContent = "🐢 The turtle is feeling lazy and refuses to run your code right now. Try again!";
     outputEl.classList.add("output-error");
+    logDiary("Turtle refused — feeling lazy.");
     return;
   }
   outputEl.classList.remove("output-error");
@@ -439,10 +492,22 @@ runBtn.addEventListener("click", async function () {
       usedFallback = true;
     }
     var text = result || "(no output — the turtle heard nothing)\n";
-    text += "\n✨ Poetic wisdom:\n" + poeticOutput() + "\n";
+    var haiku = poeticOutput();
+    lastHaiku = haiku;
+    text += "\n✨ Poetic wisdom:\n" + haiku + "\n";
     // Turtle mood roll (ports run_code’s 20/30/50 split).
     var roll = Math.random();
+    var moodName = roll < 0.2 ? "raging" : roll < 0.5 ? "sleepy" : "content";
     text += "\n" + (roll < 0.2 ? TURTLE_RAGE : roll < 0.5 ? TURTLE_TOO_SLOW : TURTLE_JUST_RIGHT) + "\n";
+    if (ragedSinceRun) {
+      gentleStreak = 0;
+    } else {
+      gentleStreak += 1;
+    }
+    ragedSinceRun = false;
+    store.set("slowlang-gentle-streak", String(gentleStreak));
+    renderStreak();
+    logDiary("Ran " + code.split("\n").length + " lines — mood: " + moodName + ".");
     if (usedFallback) {
       text += "\n(note: full Python couldn’t load, so the tiny offline runner stepped in)\n";
     }
@@ -468,8 +533,45 @@ clearBtn.addEventListener("click", function () {
   editor.focus();
 });
 
+async function copyText(text, what) {
+  try {
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else if (document.execCommand) {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    } else {
+      throw new Error("no clipboard available");
+    }
+    setStatus(what + " copied. The turtle witnessed it 🐢", "is-calm");
+  } catch (err) {
+    setStatus("Copy failed — select the output by hand, slowly.", "is-rage");
+  }
+}
+
+copyBtn.addEventListener("click", async function () {
+  await copyText(outputEl.textContent, "Output");
+});
+
+haikuBtn.addEventListener("click", async function () {
+  if (!lastHaiku) {
+    setStatus("Run something first — no haiku yet.", "is-steady");
+    return;
+  }
+  await copyText(lastHaiku, "Haiku");
+});
+
+window.addEventListener("online", function () { updateNetNote(true); });
+window.addEventListener("offline", function () { updateNetNote(false); });
+
 /* --- Init --- */
 refreshHighlight();
+renderStreak();
+refreshNetNote();
 if (typeof introEl.showModal === "function") {
   introEl.showModal();
 }
@@ -486,6 +588,9 @@ if (typeof window !== "undefined") {
     pickRunQuotes: pickRunQuotes,
     showRage: showRage,
     calmTurtle: calmTurtle,
-    setStatus: setStatus
+    setStatus: setStatus,
+    updateNetNote: updateNetNote,
+    renderStreak: renderStreak,
+    logDiary: logDiary
   };
 }
