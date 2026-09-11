@@ -1,15 +1,22 @@
+import random
 import time
 _rng = random.SystemRandom()
 
-import keyboard
-
 from ascii_turtle import show_turtle_rage
-from exporter import export_text
 from sarcasm_engine import get_sarcastic_remark
 
 
 class TypingSpeedError(Exception):
     """Raised when the user types faster than the configured speed limit."""
+
+
+def wpm_from_timestamps(timestamps, now, window=10.0):
+    """Rolling words-per-minute from keystroke timestamps (5 chars = 1 word)."""
+    recent = [ts for ts in timestamps if 0 <= now - ts <= window]
+    if len(recent) < 2:
+        return 0.0
+    span = max(recent[-1] - recent[0], 1e-6)
+    return (len(recent) / 5) / (span / 60)
 
 
 class TypingEngine:
@@ -54,6 +61,9 @@ class TypingEngine:
         return True
 
     def type_listener(self):
+        import keyboard  # lazy: helpers stay importable without optional deps
+        from exporter import export_text
+
         print("🐢 Welcome to TortoiseLang! Type slowly...\n")
         print("Shortcuts: [esc]=exit, [ctrl+s]=save, [ctrl+r]=reset, [ctrl+w]=show WPM, [ctrl+e]=export as .slow and check politeness\n")
         self._reset()
