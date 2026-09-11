@@ -482,6 +482,10 @@ if (typeof window !== "undefined") {
     sarcasticMessage: sarcasticMessage,
     poeticOutput: poeticOutput,
     compileQuote: compileQuote,
-    compileQuotes: COMPILE_QUOTES
+    compileQuotes: COMPILE_QUOTES,
+    pickRunQuotes: pickRunQuotes,
+    showRage: showRage,
+    calmTurtle: calmTurtle,
+    setStatus: setStatus
   };
 }

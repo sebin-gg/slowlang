@@ -1,18 +1,25 @@
 // Smoke tests for the static web demo (demo/app.js).
-// Runs under plain node --test, no dependencies: the script is loaded with
-// vm (filename set so V8 coverage maps back to demo/app.js) against tiny
-// DOM stubs, then exercised through the window.__slowlang hooks.
-import { readFileSync } from "node:fs";
-import vm from "node:vm";
+// Runs under plain node --test, no dependencies: the browser script is
+// loaded with require() against tiny DOM stubs, then exercised through the
+// window.__slowlang hooks. Requiring (not vm-evaluating) keeps the file a
+// plain static script and lets V8 coverage map back to demo/app.js.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { createRequire } from "node:module";
 
 function stubEl() {
+  const handlers = {};
   return {
-    addEventListener() {},
+    __handlers: handlers,
+    addEventListener: (type, fn) => {
+      (handlers[type] ||= []).push(fn);
+    },
     removeEventListener() {},
     setAttribute() {},
     focus() {},
+    click: async function () {
+      for (const fn of handlers.click || []) await fn();
+    },
     classList: { add() {}, remove() {} },
     style: {},
     disabled: false,
@@ -41,9 +48,11 @@ globalThis.document = {
 globalThis.window = globalThis;
 globalThis.matchMedia = () => ({ matches: false });
 
-const appPath = new URL("../demo/app.js", import.meta.url);
-vm.runInThisContext(readFileSync(appPath, "utf8"), { filename: appPath.pathname });
+const require = createRequire(import.meta.url);
+require("../demo/app.js");
 const api = globalThis.__slowlang;
+const el = (id) => store.get(id);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 test("fallback runner handles the README sample", () => {
   const out = api.runWithFallback(
@@ -79,4 +88,60 @@ test("loader quotes cycle deterministically", () => {
   assert.equal(api.compileQuote(0), api.compileQuotes[0]);
   assert.equal(api.compileQuote(10), api.compileQuotes[0]);
   assert.equal(api.compileQuote(9), api.compileQuotes[9]);
+});
+
+test("run quotes rotate four at a time", () => {
+  const first = api.pickRunQuotes();
+  const second = api.pickRunQuotes();
+  assert.equal(first.length, 4);
+  assert.ok(!first.includes(undefined));
+  assert.notDeepEqual(first, second);
+});
+
+test("status sets mood faces", () => {
+  api.setStatus("boom", "is-rage");
+  assert.equal(el("status").textContent, "boom");
+  assert.equal(el("mood-face").textContent, "🐢💢");
+  api.setStatus("calm", "is-calm");
+  assert.equal(el("mood-face").textContent, "🐢💚");
+});
+
+test("rage lockout disables the editor, counts down, then recovers", async () => {
+  api.showRage();
+  assert.equal(el("editor").disabled, true);
+  assert.equal(el("rage").hidden, false);
+  assert.ok(el("rage-count").textContent.includes("2"));
+  await sleep(1100);
+  assert.ok(el("rage-count").textContent.includes("1"));
+  await sleep(1200);
+  assert.equal(el("rage").hidden, true);
+  assert.equal(el("editor").disabled, false);
+});
+
+test("run executes code, shows wisdom and restores the button", async () => {
+  // Fake Pyodide: capture stdout through the real batched() callback.
+  globalThis.loadPyodide = async () => ({
+    setStdout: () => {},
+    setStderr: () => {},
+    globals: { set: () => {} },
+    runPythonAsync: async () => {},
+  });
+  // Drive output through please(): the app wires it to write a thank-you.
+  const realGlobals = { please: null };
+  globalThis.loadPyodide = async () => ({
+    setStdout: ({ batched }) => batched("hello from python"),
+    setStderr: () => {},
+    globals: { set: (name, fn) => { realGlobals[name] = fn; } },
+    runPythonAsync: async () => { realGlobals.please(); },
+  });
+  el("editor").value = 'print("hi")';
+  el("lazy-mode").checked = true; // skip the 1-in-10 lazy refusal
+  await el("run-btn").click();
+  assert.equal(el("run-btn").disabled, false);
+  assert.equal(el("run-btn").textContent, "Run (like Python)");
+  assert.ok(el("output").textContent.includes("hello from python"));
+  assert.ok(el("output").textContent.includes("turtle thanks you"));
+  assert.ok(el("output").textContent.includes("Poetic wisdom"));
+  assert.ok(el("output").textContent.includes("🐢"));
+  delete globalThis.loadPyodide;
 });
