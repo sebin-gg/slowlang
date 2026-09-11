@@ -12,6 +12,10 @@ Features:
 • Fake IDE: Tkinter-based IDE with live feedback, export, and run buttons, Python color scheme, and smart indentation.
 • Live typing speed enforcement: Type too fast and a turtle rage window will pop up.
 • Run code like Python: Use the "Run (like Python)" button to execute your code directly in the IDE.
+• Rude code is refused: add please() calls or the turtle won't run it.
+• Live WPM readout, line numbers, and a countdown on the rage lockout.
+• Load sample button and a gentle streak for rage-free runs.
+• The compiler will sometimes pop words of wisdom after execution.
 • Python color scheme and smart indentation: Editor highlights Python keywords, strings, comments, and builtins, and auto-indents after colons for blocks.
 • Sarcastic errors and poetic output: Enjoy haikus and sassy remarks if you break the rules.
 • The compiler will sometimes pop words of wisdom after execution.

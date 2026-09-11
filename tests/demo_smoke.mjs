@@ -128,12 +128,10 @@ test("loader quotes cycle deterministically", () => {
   assert.equal(api.compileQuote(9), api.compileQuotes[9]);
 });
 
-test("run quotes rotate four at a time", () => {
-  const first = api.pickRunQuotes();
-  const second = api.pickRunQuotes();
-  assert.equal(first.length, 4);
-  assert.ok(!first.includes(undefined));
-  assert.notDeepEqual(first, second);
+test("run quotes pick four valid quotes", () => {
+  const q = api.pickRunQuotes();
+  assert.equal(q.length, 4);
+  for (const line of q) assert.ok(api.compileQuotes.includes(line));
 });
 
 test("status sets mood faces", () => {

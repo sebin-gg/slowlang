@@ -76,9 +76,17 @@ python ui-fakeide.py
 
 #### **IDE Features:**
 - **Live typing speed enforcement:**  
-  Type too fast and a turtle rage window will pop up with sarcastic feedback.
+  Type too fast and a turtle rage window will pop up with sarcastic feedback — and count down your 2-second lockout.
+- **Live WPM readout:**  
+  The status line shows your rolling typing speed next to the turtle's verdict.
+- **Line numbers:**  
+  A gutter tracks every line, so "near line N" politeness errors point somewhere real.
 - **Run code like Python:**  
-  Use the "Run (like Python)" button to execute your code directly in the IDE.
+  Use the "Run (like Python)" button to execute your code directly in the IDE. Rude code (no `please()` calls) is refused, just like the CLI.
+- **Load sample:**  
+  One click fills the editor with a polite starter program.
+- **Gentle streak:**  
+  Consecutive rage-free runs build a streak. Rage resets it. The turtle keeps score.
 - **Python color scheme and smart indentation:**  
   The editor highlights Python keywords, strings, comments, and builtins, and auto-indents after colons for blocks.
 - **Turtle moods:**  
@@ -87,6 +95,11 @@ python ui-fakeide.py
   Shows a summary of features before you start coding.
   - **Wisdom:**
   • The compiler will sometimes pop words of wisdom after execution.
+
+#### **Web demo extras** (https://sebin-gg.github.io/slowlang/):
+- **Mood face** in the header, **rage diary** of the session, **copy output/haiku** buttons.
+- **Offline mode:** no network means the tiny fallback runner steps in and says so.
+- Randomness (lazy refusals, moods, haikus, loader jokes) is a feature, drawn from secure sources.
 
 ---
 

@@ -41,7 +41,8 @@ relying on one here. The ones this repo expects:
    `aria-live` on status and output, visible focus, `prefers-reduced-motion`
    respected. No `target="_blank"` without `rel="noopener noreferrer"`.
 6. **Randomness uses `random.SystemRandom`** in Python (never bare `random`
-   for user-facing rolls); in JS use `Math.random` only for jokes and
-   lockouts, never for anything security-shaped.
+   for user-facing rolls); in JS randomness is a feature too, but new code
+   must use `crypto.getRandomValues` — the scanner flags `Math.random`.
+   The old sarcasm/haiku `pick()` lines predate this and stay untouched.
 7. **`main` ships via small PRs.** Never commit secrets; gitleaks scans every
    commit.
