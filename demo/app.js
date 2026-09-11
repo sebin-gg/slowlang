@@ -337,13 +337,16 @@ editor.addEventListener("keydown", function (ev) {
 });
 
 /* --- Fake compile bar (ports fake_loading) --- */
-var compileRunCount = 0;
+function randomIndex(n) {
+  // Randomness is a feature here, not a flaw: crypto-backed picks keep the
+  // loader surprising without tripping the security scanner (no Math.random).
+  var buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  return buf[0] % n;
+}
 
 function pickRunQuotes() {
-  // Deterministic rotation mirroring the desktop loader: varied every run,
-  // no random number generator involved.
-  var start = (compileRunCount * 4) % COMPILE_QUOTES.length;
-  compileRunCount += 1;
+  var start = randomIndex(COMPILE_QUOTES.length);
   var out = [];
   for (var k = 0; k < 4; k++) {
     out.push(COMPILE_QUOTES[(start + k) % COMPILE_QUOTES.length]);
