@@ -8,6 +8,7 @@ from sarcasm_engine import (
     get_sarcastic_remark,
 )
 from tortoise_lang import check_pleases
+from typing_engine import wpm_from_timestamps
 
 
 def test_sarcastic_remark_is_string():
@@ -41,3 +42,14 @@ def test_loading_quotes_cycle_deterministically():
 
 def test_poetic_output_varies():
     assert len({get_poetic_output() for _ in range(50)}) > 1
+
+
+def test_wpm_needs_two_keystrokes():
+    assert wpm_from_timestamps([], 100.0) == 0.0
+    assert wpm_from_timestamps([99.0], 100.0) == 0.0
+
+
+def test_wpm_math_and_window():
+    stamps = [90.0 + i * 0.2 for i in range(50)]  # 50 keys over 9.8 s
+    assert abs(wpm_from_timestamps(stamps, 100.0) - 10 / (9.8 / 60)) < 0.01
+    assert wpm_from_timestamps([0.0, 0.1], 100.0) == 0.0  # outside window
