@@ -193,8 +193,14 @@ function refreshNetNote() {
   updateNetNote(online);
 }
 
+function secureRandom() {
+  const value = new Uint32Array(1);
+  crypto.getRandomValues(value);
+  return value[0] / 0x100000000;
+}
+
 function pick(list) {
-  return list[Math.floor(Math.random() * list.length)];
+  return list[Math.floor(secureRandom() * list.length)];
 }
 
 function sarcasticMessage(theme) {
@@ -465,7 +471,7 @@ function runWithFallback(code) {
 runBtn.addEventListener("click", async function () {
   if (turtleAngry) return;
   // 10% lazy refusal, unless Lazy Mode is on (ports run_code).
-  if (Math.random() < 0.1 && !lazyBox.checked) {
+  if (secureRandom() < 0.1 && !lazyBox.checked) {
     outputEl.textContent = "🐢 The turtle is feeling lazy and refuses to run your code right now. Try again!";
     outputEl.classList.add("output-error");
     logDiary("Turtle refused — feeling lazy.");
@@ -499,7 +505,7 @@ runBtn.addEventListener("click", async function () {
     lastHaiku = haiku;
     text += "\n✨ Poetic wisdom:\n" + haiku + "\n";
     // Turtle mood roll (ports run_code’s 20/30/50 split).
-    var roll = Math.random();
+    var roll = secureRandom();
     var moodName = roll < 0.2 ? "raging" : roll < 0.5 ? "sleepy" : "content";
     text += "\n" + (roll < 0.2 ? TURTLE_RAGE : roll < 0.5 ? TURTLE_TOO_SLOW : TURTLE_JUST_RIGHT) + "\n";
     if (ragedSinceRun) {
