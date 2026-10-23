@@ -32,6 +32,6 @@ jobs:
           python -m pytest -q
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22.23.4'
       - name: Demo test
         run: node --test tests/demo_smoke.mjs
