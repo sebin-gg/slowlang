@@ -30,7 +30,7 @@ jobs:
           coverage xml
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22.23.4'
       - name: Demo coverage
         run: node --experimental-test-coverage --test-reporter=lcov --test tests/demo_smoke.mjs > coverage.lcov
       - name: SonarQube Cloud Scan
