@@ -28,7 +28,7 @@ jobs:
           python -m pip install --quiet --only-binary=:all: pytest==8.3.4 coverage==7.6.1
           coverage run -m pytest -q
           coverage xml
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22.23.4'
       - name: Demo coverage
