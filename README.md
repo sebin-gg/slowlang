@@ -6,6 +6,8 @@
 
 More work by the same author: [sebin-gg.vercel.app](https://sebin-gg.vercel.app).
 
+Read the story behind it: [I built a programming language that punishes you for typing too fast](https://sebin-gg.vercel.app/blog/slowlang-a-language-that-punishes-fast-typing).
+
 A **sarcastic programming language** and IDE that throws errors if you type too fast.  
 Complete with a screaming ASCII turtle, poetic output, and a sassy, minimalistic Python IDE.  
 Why rush, when your code can feel... meaningful?
