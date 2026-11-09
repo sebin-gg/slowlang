@@ -10,6 +10,8 @@ A **sarcastic programming language** and IDE that throws errors if you type too 
 Complete with a screaming ASCII turtle, poetic output, and a sassy, minimalistic Python IDE.  
 Why rush, when your code can feel... meaningful?
 
+🏆 **Winner — TinkerHub Useless Projects 2.0 hackathon**, built by CS students at College of Engineering Chengannur, Kerala, India.
+
 ---
 
 ## 🧠 Basic Details
