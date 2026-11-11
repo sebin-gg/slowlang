@@ -1,0 +1,87 @@
+import random
+_rng = random.SystemRandom()
+
+
+def get_sarcastic_message(theme="default"):
+    if theme == "lazy_turtle":
+        messages = [
+            "The turtle is napping. Try again later.",
+            "Why rush? The turtle needs a break.",
+            "Yawn... too much effort for the turtle."
+        ]
+    elif theme == "grumpy_mentor":
+        messages = [
+            "Back in my day, we typed slower.",
+            "You call that code? Try again, rookie.",
+            "Slow down, or you'll break something."
+        ]
+    else:
+        messages = [
+            "Oh wow, you're a real keyboard ninja, aren't you?",
+            "Slow down! The turtle’s about to sue you for emotional damage.",
+            "Your keyboard called. It needs a vacation.",
+            "This isn’t a Formula 1 race. It’s TortoiseLang.",
+            "Congratulations! You’ve earned the ‘Too Fast, Too Curious’ award.",
+            "Nice try, Shakespeare. But the turtle disagrees.",
+            "Coding at warp speed? Bold. Wrong, but bold.",
+            "You're typing faster than the turtle can think. Rude.",
+            "Ever heard of slow food? This is slow code.",
+            "Your code has officially outpaced human patience."
+        ]
+    return _rng.choice(messages)
+
+def get_sarcastic_remark():
+    # Alias for compatibility with typing_engine.py
+    return get_sarcastic_message()
+
+def get_poetic_output():
+    haikus = [
+        # Original Creative Haikus
+        "Code like a whisper,\nSoftly flowing, line by line—\nErrors fear silence.",
+        "Slow and steady types,\nWisdom in every keystroke,\nThe bug stays asleep.",
+        "Haste is the foe here,\nTurtles preach divine rhythm,\nPause. Now type again.",
+        "A line of logic,\nNot rushed but born with meaning,\nLike rain on still ponds.",
+        "In slow typing's glow,\nA turtle watches, amused,\nScripting elegance.",
+
+        # Public Domain / Inspired Additions
+        "Over the keyboard,\nFingers rush, but thoughts delay—\nTurtle shakes his head.",
+        "Write one line slowly,\nRead it like a morning breeze—\nThe code flows with peace.",
+        "Why do you hurry?\nThe turtle’s still on line two—\nAnd he wrote a gem.",
+        "Infinite wisdom—\nLies not in speed, but in pause.\nReflect, type, repeat.",
+        "The wind does not rush,\nYet moves mountains patiently.\nSo should your fingers.",
+
+        # Meta-funny ones
+        "Beneath blinking lights,\nFast fingers breed fast errors—\nTurtle sighs again.",
+        "A furious tap,\nBrings forth compiler fury—\nPatience is your shield.",
+        "Racing through functions,\nSyntax collapses in fear—\nSlow is beautiful.",
+        "Shift. Return. Escape.\nNone will help your case here.\nSlow down or regret.",
+        "The screen glares at you,\nSilently judging your haste—\nSlow. Compose. Retry.",
+
+        # Slow-batch additions
+        "You typed like thunder,\nthe turtle filed a complaint —\ncase still pending.",
+        "Fast fingers falter,\nslow fingers ship on Friday —\nthe turtle nods.",
+        "Rubber duck asleep,\nturtle awake and judging —\nexplain it slower.",
+        "Zero errors found.\nThe turtle takes full credit.\nYou may thank him now.",
+        "A watched pot won't boil;\nwatched code won't ship either.\nType gently anyway.",
+        "Your loop ran eleven\ntimes instead of ten. Slow down.\nCount with the turtle."
+    ]
+    return _rng.choice(haikus)
+
+
+LOADING_QUOTES = [
+    "Waking the turtle…",
+    "Brewing patience…",
+    "Counting your keystrokes (slowly)…",
+    "Teaching semicolons manners…",
+    "Consulting ancient tortoise wisdom…",
+    "Polishing haikus…",
+    "Asking the compiler for a favor…",
+    "Untangling your indentation…",
+    "Convincing the turtle you meant that…",
+    "Almost there. No rushing.",
+]
+
+
+def get_loading_quote(step=0):
+    """Deterministic rotating quote for progress bars (step = bar tick)."""
+    return LOADING_QUOTES[step % len(LOADING_QUOTES)]

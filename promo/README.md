@@ -49,6 +49,15 @@ ASCII-only in platform text fields (em-dashes mangle to `?`).
 - `posts/linkedin.txt` — LinkedIn long post
 - `posts/reddit-esolangs.md` — r/esolangs (authorship disclosed)
 - `posts/esoteric-codes-email.txt` — pitch to feedback@esoteric.codes
+- `posts/show-hn.md` — Show HN title + first comment (demo link)
+- `posts/product-hunt.md` — PH launch copy
+- `posts/reddit-sideproject.md` — r/SideProject + r/ProgrammerHumor
+
+## Action checklists
+
+- `ACCOUNTS.md` — signup + publish steps for PyPI, npm, VS Code
+  Marketplace, Hugging Face, and every manual-only post
+- `research-2026-11-11.md` — 36 ranked avenues (primary-source verified)
 
 ## Articles
 

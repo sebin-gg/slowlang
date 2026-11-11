@@ -1,0 +1,27 @@
+{
+  "name": "slowlang",
+  "version": "1.0.0",
+  "description": "Joke CLI for SlowLang - the esoteric programming language that punishes fast typing. Angry ASCII turtle, rage lockouts, haiku errors.",
+  "bin": {
+    "slowlang": "bin/slowlang.js"
+  },
+  "scripts": {
+    "test": "node --test tests/demo_smoke.mjs"
+  },
+  "keywords": [
+    "esolang",
+    "esoteric-programming-language",
+    "tortoiselang",
+    "joke",
+    "slowlang"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebin-gg/slowlang.git"
+  },
+  "homepage": "https://sebin-gg.github.io/slowlang/",
+  "engines": {
+    "node": ">=18"
+  }
+}

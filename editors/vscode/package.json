@@ -1,0 +1,46 @@
+{
+  "name": "slowlang",
+  "displayName": "SlowLang",
+  "description": "Syntax highlighting for SlowLang (.slow) - the esoteric programming language that punishes fast typing. Python grammar plus the please() keyword.",
+  "version": "1.0.0",
+  "publisher": "sebin-gg",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "esolang",
+    "esoteric",
+    "slowlang",
+    "tortoiselang"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebin-gg/slowlang.git"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "slowlang",
+        "aliases": [
+          "SlowLang",
+          "TortoiseLang"
+        ],
+        "extensions": [
+          ".slow"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "slowlang",
+        "scopeName": "source.slowlang",
+        "path": "./syntaxes/slowlang.tmLanguage.json"
+      }
+    ]
+  }
+}
