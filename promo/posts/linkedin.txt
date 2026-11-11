@@ -1,0 +1,21 @@
+In August 2025, at TinkerHub's Useless Projects 2.0 hackathon in Kerala, my teammate and I built something gloriously pointless: SlowLang, an esoteric programming language with a speed limit.
+
+The premise is simple. SlowLang enforces a 30 WPM typing cap. Type faster than the limit and the ASCII turtle mascot rage-locks you out for two seconds, then mocks you in haiku. Type too slowly and it calls you lazy. There is a narrow band of acceptable mediocrity, and the IDE polices it.
+
+Why build this? Because hackathons like Useless Projects reward exactly one thing: commitment to a bad idea executed well. We implemented a real lexer, a Tkinter desktop IDE, a sarcasm engine with a lazy-refusal probability roll, and a zero-install browser demo that plays by identical rules. The language is Python-adjacent, technically functional, and philosophically hostile.
+
+It won first place.
+
+A few honest lessons from the build:
+
+1. Constraints are a design tool. The WPM cap sounds like a joke but it forced real decisions about event timing, state machines, and forgiveness windows.
+
+2. Humor needs engineering rigor. Every joke line ships in two places (desktop and web demo), tested, with the same thresholds. Comedy that breaks isn't comedy, it's a bug.
+
+3. Ship the demo. Every feature exists in a playable browser build. Nobody downloads a joke.
+
+Try the demo (it will insult you): https://sebin-gg.github.io/slowlang/
+Source: https://github.com/sebin-gg/slowlang
+Longer write-up: https://sebin-gg.vercel.app/blog/slowlang-a-language-that-punishes-fast-typing
+
+#softwaredevelopment #programming #hackathon #python
