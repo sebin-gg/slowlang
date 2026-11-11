@@ -5,6 +5,9 @@
   "bin": {
     "slowlang": "bin/slowlang.js"
   },
+  "files": [
+    "bin"
+  ],
   "scripts": {
     "test": "node --test tests/demo_smoke.mjs"
   },
