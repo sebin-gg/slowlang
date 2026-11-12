@@ -1,6 +1,0 @@
-ascii_turtle
-exporter
-feature_popup
-sarcasm_engine
-tortoise_lang
-typing_engine

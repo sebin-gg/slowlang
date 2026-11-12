@@ -58,3 +58,23 @@ def test_wpm_math_and_window():
     stamps = [90.0 + i * 0.2 for i in range(50)]  # 50 keys over 9.8 s
     assert abs(wpm_from_timestamps(stamps, 100.0) - 10 / (9.8 / 60)) < 0.01
     assert wpm_from_timestamps([0.0, 0.1], 100.0) == 0.0  # outside window
+
+
+def test_main_usage_message(capsys, monkeypatch):
+    import sys
+    from tortoise_lang import main
+
+    monkeypatch.setattr(sys, "argv", ["slowlang"])
+    main()
+    assert "Usage: slowlang" in capsys.readouterr().out
+
+
+def test_main_runs_file(monkeypatch):
+    import sys
+    from tortoise_lang import main
+
+    called = {}
+    monkeypatch.setattr("tortoise_lang.run_slowlang", lambda f: called.setdefault("f", f))
+    monkeypatch.setattr(sys, "argv", ["slowlang", "x.slow"])
+    main()
+    assert called["f"] == "x.slow"

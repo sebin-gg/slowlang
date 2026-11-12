@@ -1,7 +1,0 @@
-
-[ide]
-rich>=13.0.0
-keyboard>=0.13.5
-
-[test]
-pytest>=8.0.0

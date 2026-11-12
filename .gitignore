@@ -23,3 +23,6 @@ coverage.lcov
 # packaging artifacts
 dist/
 *.vsix
+
+build/
+*.egg-info/

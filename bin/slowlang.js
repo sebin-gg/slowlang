@@ -55,30 +55,35 @@ function checkPleases(lines) {
   return true;
 }
 
-function main() {
-  const file = process.argv[2];
+function main(argv = process.argv, rng = rand) {
+  const file = argv[2];
   if (!file || !/\.(slow|py)$/.test(file)) {
     console.log("Usage: slowlang <yourfile.slow>");
-    process.exit(1);
+    return 1;
   }
   if (!fs.existsSync(file)) {
     console.log(`No such file: ${file} - the turtle looked everywhere. Slowly.`);
-    process.exit(1);
+    return 1;
   }
-  if (rand() < 0.1) {
+  if (rng() < 0.1) {
     console.log(pick(LAZY_TURTLE_LINES));
     console.log("The SlowLang compiler refuses to run your code right now. Try again!");
-    return;
+    return 0;
   }
   const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);
   if (!checkPleases(lines)) {
     console.log("Refusing to run rude code.");
-    return;
+    return 0;
   }
   console.log(HAIKU);
   console.log("\nPoliteness check passed. To actually run it:");
   console.log("  pip install slowlang && slowlang " + file);
   console.log("  or try the zero-install demo: https://sebin-gg.github.io/slowlang/");
+  return 0;
 }
 
-main();
+if (require.main === module) {
+  process.exit(main());
+}
+
+module.exports = { main, checkPleases };
