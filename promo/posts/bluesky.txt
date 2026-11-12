@@ -1,0 +1,5 @@
+I built an esoteric programming language that rage-locks the editor if you type faster than one key per 0.1 seconds - it won TinkerHub Useless Projects 2.0.
+
+SlowLang: 2s lockouts, sarcastic rage insults, a smug haiku on success. Web demo runs the same rules, zero install.
+
+https://sebin-gg.github.io/slowlang/

@@ -19,3 +19,10 @@ Thumbs.db
 .coverage
 coverage.xml
 coverage.lcov
+
+# packaging artifacts
+dist/
+*.vsix
+
+build/
+*.egg-info/
