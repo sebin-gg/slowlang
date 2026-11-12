@@ -29,6 +29,8 @@ I wrote about the event itself [on LinkedIn](https://www.linkedin.com/posts/sebi
 ## Try it / steal it
 
 - **Browser demo:** https://sebin-gg.github.io/slowlang/ — no install, Pyodide under the hood
+- **`pip install slowlang`** — [PyPI](https://pypi.org/project/slowlang/)
+- **`npm i -g slowlang`** — [npm](https://www.npmjs.com/package/slowlang) (`turtlelang` is the official alias on both)
 - **Source:** https://github.com/sebin-gg/slowlang — Python + Tkinter, tests included
 - **My portfolio:** https://sebin-gg.vercel.app — the rest of what I build
 

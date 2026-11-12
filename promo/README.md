@@ -12,6 +12,9 @@ ASCII-only in platform text fields (em-dashes mangle to `?`).
 - Article (canonical): https://sebin-gg.vercel.app/blog/slowlang-a-language-that-punishes-fast-typing
 - Esolangs wiki: https://esolangs.org/wiki/SlowLang
 - PLDB: https://pldb.io/concepts/slowlang.html
+- PyPI: https://pypi.org/project/slowlang/ (`pip install slowlang`)
+- npm: https://www.npmjs.com/package/slowlang (`npm i -g slowlang`)
+- Alias (typo-safe, both registries): `turtlelang`
 
 ## Canonical entity line (AEO)
 

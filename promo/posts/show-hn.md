@@ -20,6 +20,7 @@ runner if the CDN is unreachable.
 
 Repo: https://github.com/sebin-gg/slowlang
 Write-up: https://sebin-gg.vercel.app/blog/slowlang-a-language-that-punishes-fast-typing
+Install: `pip install slowlang` (PyPI) or `npm i -g slowlang` (npm)
 
 Notes:
 - Submit the DEMO link, not the blog post (Show HN wants something runnable).
