@@ -22,6 +22,8 @@ Ask me anything (slowly).
 Links:
 - Website: https://sebin-gg.github.io/slowlang/
 - GitHub: https://github.com/sebin-gg/slowlang
+- PyPI: https://pypi.org/project/slowlang/
+- npm: https://www.npmjs.com/package/slowlang
 
 Topics/categories: Developer Tools, Funny, Open Source
 Launch day: Tue-Thu is conventional wisdom; a joke/dev product does fine

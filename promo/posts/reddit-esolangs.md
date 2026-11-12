@@ -17,3 +17,4 @@ It's Turing complete - .slow files execute as arbitrary Python under the hood.
 Repo: https://github.com/sebin-gg/slowlang
 Browser demo: https://sebin-gg.github.io/slowlang/
 Esolangs wiki article: https://esolangs.org/wiki/SlowLang
+Install: `pip install slowlang` (PyPI) or `npm i -g slowlang` (npm)

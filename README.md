@@ -2,6 +2,8 @@
 
 # 🐢 slowLang – Slower is Better
 
+[![PyPI](https://img.shields.io/pypi/v/slowlang)](https://pypi.org/project/slowlang/) [![npm](https://img.shields.io/npm/v/slowlang)](https://www.npmjs.com/package/slowlang)
+
 **🌐 Try it in your browser, no install: https://sebin-gg.github.io/slowlang/**
 
 More work by the same author: [sebin-gg.vercel.app](https://sebin-gg.vercel.app).
@@ -57,6 +59,17 @@ It promotes *"patience-oriented programming"* with haikus, delays, and sarcastic
 ---
 
 ## ⚙️ Installation
+
+Published packages — the fastest way in:
+
+```bash
+pip install slowlang     # the real thing, from PyPI
+npm i -g slowlang        # the joke CLI, from npm
+```
+
+(`turtlelang` on npm and PyPI is our official alias — same package, installs `slowlang`.)
+
+From source instead:
 
 ```bash
 pip install -r requirements.txt

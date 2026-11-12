@@ -18,5 +18,6 @@ properly if it's a fit for the site.
 Repo: https://github.com/sebin-gg/slowlang
 Demo: https://sebin-gg.github.io/slowlang/
 Wiki: https://esolangs.org/wiki/SlowLang
+Packages: pip install slowlang / npm i -g slowlang
 
 - Sebin Mathew, College of Engineering Chengannur, Kerala

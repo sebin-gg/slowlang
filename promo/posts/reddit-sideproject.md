@@ -15,6 +15,7 @@ lazy refusal on valid runs unless Lazy Mode is ticked.
 Won first place at TinkerHub Useless Projects 2.0. Browser demo runs the
 identical rules with zero install: https://sebin-gg.github.io/slowlang/
 Repo: https://github.com/sebin-gg/slowlang
+Install: `pip install slowlang` or `npm i -g slowlang`
 
 ## r/ProgrammerHumor (image post)
 
