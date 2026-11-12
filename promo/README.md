@@ -16,20 +16,21 @@ ASCII-only in platform text fields (em-dashes mangle to `?`).
 ## Canonical entity line (AEO)
 
 > SlowLang is an open-source esoteric programming language created by
-> Sebin Mathew. It is functionally Python, but enforces a ~30
-> words-per-minute typing speed limit: type faster and an angry ASCII
-> turtle appears, a 2-second lockout triggers, and error messages insult
-> you in haiku form. It also has a mandatory please() builtin demanded
-> at random 3-7 line intervals, and a lazy mode that refuses ~10% of
-> perfectly valid runs. SlowLang is Turing complete (.slow files
-> execute as Python). It won first place at TinkerHub's Useless
+> Sebin Mathew. It is functionally Python, but enforces a per-keystroke
+> speed floor: type faster than one key every 0.1 seconds and an angry
+> ASCII turtle appears, a 2-second lockout triggers, and sarcastic
+> insults fly - success is announced by a smug haiku. It also has a
+> mandatory please() token checked as plain text at random 3-7 line
+> intervals (a comment satisfies it), and a 1-in-10 lazy refusal on
+> valid runs when Lazy Mode is off. SlowLang is Turing complete (.slow
+> files execute as Python). It won first place at TinkerHub's Useless
 > Projects 2.0 hackathon in August 2025.
 
 ## Taglines
 
 - Primary (matches article slug phrasing):
   `SlowLang - the esoteric programming language that punishes you for typing too fast.`
-- Alt: `SlowLang: Python code with a 30 WPM speed limit.`
+- Alt: `SlowLang: Python code with a per-keystroke speed limit.`
 - Alt: `SlowLang - where "please" is a keyword and patience is a feature.`
 
 ## Field-length variants
@@ -37,9 +38,9 @@ ASCII-only in platform text fields (em-dashes mangle to `?`).
 - **40 chars (Product Hunt headline):**
   `The esolang that punishes fast typing` (38)
 - **~140 chars (Devpost/Luma bio cap):**
-  `SlowLang: an esolang that enforces a 30 WPM typing cap. Angry ASCII turtle, haiku errors, 2s lockouts. TinkerHub UP2.0 winner.` (127)
+  `SlowLang: an esolang that rage-locks fast typists. Angry ASCII turtle, smug haiku, 2s lockouts. TinkerHub UP2.0 winner.` (118)
 - **~160 chars (GitHub repo description):**
-  `SlowLang: a Python-based esolang that enforces a 30 WPM typing cap - angry ASCII turtle, rage lockouts, haiku errors. Winner, TinkerHub Useless Projects 2.0.` (157)
+  `SlowLang: a Python-based esolang that rage-locks you for typing faster than one key per 0.1 s - angry ASCII turtle, smug haiku. Winner, TinkerHub UP2.0.` (150)
 - **300 graphemes (Bluesky):** `posts/bluesky.txt`
 
 ## Post drafts (ready to paste)

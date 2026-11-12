@@ -71,6 +71,9 @@ function main(argv = process.argv, rng = rand) {
     return 0;
   }
   const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);
+  // A trailing line terminator leaves a phantom "" element; a window that
+  // starts on it contains no please() and would misreport a polite file.
+  while (lines.length > 0 && lines[lines.length - 1] === "") lines.pop();
   if (!checkPleases(lines)) {
     console.log("Refusing to run rude code.");
     return 0;

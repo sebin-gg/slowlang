@@ -40,6 +40,13 @@
         "language": "slowlang",
         "scopeName": "source.slowlang",
         "path": "./syntaxes/slowlang.tmLanguage.json"
+      },
+      {
+        "scopeName": "slowlang.please.injection",
+        "path": "./syntaxes/please.injection.json",
+        "injectTo": [
+          "source.slowlang"
+        ]
       }
     ]
   }

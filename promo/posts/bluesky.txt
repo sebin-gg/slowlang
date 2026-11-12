@@ -1,6 +1,5 @@
-I built an esoteric programming language that deletes your code if you type faster than 30 WPM - it won TinkerHub Useless Projects 2.0.
+I built an esoteric programming language that rage-locks the editor if you type faster than one key per 0.1 seconds - it won TinkerHub Useless Projects 2.0.
 
-SlowLang rage-locks you for 2s and mocks you in haiku. Web demo runs the same rules, zero install.
+SlowLang: 2s lockouts, sarcastic rage insults, a smug haiku on success. Web demo runs the same rules, zero install.
 
-Write-up: https://sebin-gg.vercel.app/blog/slowlang-a-language-that-punishes-fast-typing
-Demo: https://sebin-gg.github.io/slowlang/
+https://sebin-gg.github.io/slowlang/

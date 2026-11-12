@@ -8,12 +8,13 @@ First comment (post immediately after submitting):
 
 Author here. Built for TinkerHub's Useless Projects 2.0 hackathon (it won
 first place). The language is functionally Python - .slow files execute as
-Python - but the interface is the joke: a ~30 WPM typing cap enforced by an
-angry ASCII turtle, 2-second rage lockouts, error messages in haiku form, a
-mandatory please() builtin demanded at random 3-7 line intervals, and a lazy
-mode that refuses ~10% of perfectly valid runs.
+Python - but the interface is the joke: a per-keystroke speed cap enforced
+by an angry ASCII turtle, 2-second rage lockouts, a smug haiku on success,
+a mandatory please() token checked as plain text at random 3-7 line
+intervals, and a 1-in-10 lazy refusal on valid runs unless Lazy Mode is
+ticked.
 
-The browser demo mirrors the desktop IDE exactly (same thresholds, same
+The browser demo mirrors the desktop IDE's rules (same thresholds, same
 turtle moods); Python executes in-page via Pyodide, with a tiny fallback
 runner if the CDN is unreachable.
 

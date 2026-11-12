@@ -12,7 +12,9 @@ grammar is the built-in Python grammar plus the `please()` keyword
 2. `npm i -g @vscode/vsce` then `vsce login sebin-gg` (paste a DevOps PAT
    with Marketplace > Manage scope).
 3. From this directory: `vsce package` then `vsce publish`.
-4. Mirror to Open VSX: `npx ovsx publish -p <token>` (signup at
-   https://open-vsx.org via Eclipse account).
+4. Mirror to Open VSX: first publication needs an Eclipse account, the
+   Eclipse Foundation Publisher Agreement signed, and the `sebin-gg`
+   namespace created at https://open-vsx.org (link it via your GitHub
+   account). Then `npx ovsx publish -p <token>`.
 
 SlowLang won TinkerHub Useless Projects 2.0. Demo: https://sebin-gg.github.io/slowlang/

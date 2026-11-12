@@ -8,9 +8,11 @@ PyPI has NO SSO - username + email + mandatory 2FA (TOTP).
 
 1. Sign up at https://pypi.org/account/register/ (verify email).
 2. Enable 2FA in account settings (required to publish).
-3. Create an API token scoped to the account (or set up trusted publishing
-   via GitHub Actions - better long-term: PyPI > Publishing > GitHub,
-   owner sebin-gg, repo slowlang, workflow `publish.yml`, env `pypi`).
+3. Pick ONE auth path: (a) an API token scoped to the account - steps 4-5
+   use it with `twine`; or (b) trusted publishing via GitHub Actions
+   (PyPI > Publishing > GitHub, owner sebin-gg, repo slowlang, workflow
+   `publish.yml`, env `pypi`) - better long-term, but it needs a
+   `publish.yml` workflow added to the repo first.
 4. Build + upload from the repo root:
    ```
    python -m pip install build twine
@@ -18,17 +20,18 @@ PyPI has NO SSO - username + email + mandatory 2FA (TOTP).
    twine upload dist/*    # uploads `slowlang`
    ```
 5. For `tortoiselang`: temporarily set `name = "tortoiselang"` in
-   pyproject.toml, `python -m build`, upload, revert. (A second dist name
+   pyproject.toml, delete `dist/` (stale `slowlang` artifacts would be
+   re-uploaded), `python -m build`, upload, revert. (A second dist name
    for the same project is how the squat is claimed; PyPI treats them as
    independent names.)
 
 ## 2. npm (claim `slowlang`)
 
-npm does NOT support Google SSO - use GitHub SSO (your stated fallback).
+npm has NO OAuth signup - username + email + password.
 
-1. https://www.npmjs.com/signup - "Continue with GitHub" (account sebin-gg).
+1. https://www.npmjs.com/signup - username `sebin-gg`, email, password.
 2. Verify email. Enable 2FA (npm requires it for publishing from CLI tokens).
-3. From repo root: `npm login` (opens browser GitHub flow) then `npm publish`.
+3. From repo root: `npm login` (enter credentials) then `npm publish`.
    The package is bin/slowlang.js - the joke CLI checker.
 
 ## 3. VS Code Marketplace

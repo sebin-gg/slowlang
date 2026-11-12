@@ -14,11 +14,11 @@ Most programming languages want you to go faster. Faster compile times, faster i
 ## What it actually does
 
 - It tracks your typing speed in the IDE. Cross the threshold and you get an angry ASCII turtle and a lockout until you calm down.
-- Error messages are haikus and sarcastic praise instead of stack traces.
-- There's a lazy mode that randomly refuses to run, because sometimes the code just isn't in the mood.
+- Errors come back as `Error: ...` plus sarcastic mockery; success is announced by a smug haiku.
+- There's a 1-in-10 lazy refusal on valid runs — unless you tick Lazy Mode, which also forgives fast typing.
 - It runs in the browser too — a Pyodide-powered demo mirrors the desktop behavior, no install needed.
 
-Under the jokes there's real engineering: a keyboard-event monitor, a state machine for turtle moods (calm / annoyed / furious), a rage lockout timer, and a pytest suite covering the spec. The browser demo reimplements the same state machine in JavaScript, so both versions behave identically.
+Under the jokes there's real engineering: a keyboard-event monitor, a state machine for turtle moods (calm / annoyed / furious), a rage lockout timer, and a pytest suite covering the spec. The browser demo reimplements the same state machine in JavaScript, so both versions play by the same rules.
 
 ## Why build something useless on purpose
 

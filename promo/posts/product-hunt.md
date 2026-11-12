@@ -5,10 +5,11 @@ Tagline (40 char max): The esolang that punishes fast typing
 
 Description:
 SlowLang is an open-source esoteric programming language that enforces a
-~30 WPM typing speed limit. Type faster and an angry ASCII turtle appears,
-you get a 2-second lockout, and error messages insult you in haiku form.
-There's a mandatory please() builtin demanded at random intervals, and a
-lazy mode that refuses ~10% of perfectly valid runs. It's Turing complete
+per-keystroke speed limit: type faster than one key every 0.1 seconds and
+an angry ASCII turtle rage-locks the editor for 2 seconds amid sarcastic
+insults, while a smug haiku announces success. There's a mandatory please()
+token checked as plain text at random intervals (a comment counts), and a
+1-in-10 lazy refusal on valid runs unless Lazy Mode is ticked. It's Turing complete
 (.slow files run as Python) and has a zero-install browser demo. Winner of
 TinkerHub's Useless Projects 2.0 hackathon.
 
