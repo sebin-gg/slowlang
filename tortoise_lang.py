@@ -42,9 +42,12 @@ def run_slowlang(filename):
         return
     exec(code, {"please": please})  # noqa: S102 - intentional: language runtime
 
-if __name__ == "__main__":
+def main():
     if len(sys.argv) != 2:
-        print("Usage: python tortoise_lang.py <yourfile.slow>")
+        print("Usage: slowlang <yourfile.slow>")
     else:
         run_slowlang(sys.argv[1])
+
+if __name__ == "__main__":
+    main()
 

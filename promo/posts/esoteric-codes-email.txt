@@ -1,0 +1,23 @@
+To: feedback@esoteric.codes
+
+Subject: SlowLang - an esolang that enforces a per-keystroke speed cap
+
+Hi Daniel - I built SlowLang for TinkerHub's Useless Projects 2.0 hackathon
+(it won first place). The language is functionally Python, but the interface
+is the joke: it enforces a per-keystroke speed floor. Go faster than one
+key every 0.1 seconds and an angry ASCII turtle locks you out for two
+seconds amid sarcastic insults, while a smug haiku announces success.
+There's also a mandatory please() token checked as plain text at random
+intervals, and a 1-in-10 lazy refusal on valid runs - the Lazy Mode
+checkbox forgives both that and fast typing.
+
+The interesting bit is enforcement-as-aesthetic: the language spec exists
+mainly to make the programmer behave badly on purpose. Happy to write it up
+properly if it's a fit for the site.
+
+Repo: https://github.com/sebin-gg/slowlang
+Demo: https://sebin-gg.github.io/slowlang/
+Wiki: https://esolangs.org/wiki/SlowLang
+Packages: pip install slowlang / npm i -g slowlang
+
+- Sebin Mathew, College of Engineering Chengannur, Kerala

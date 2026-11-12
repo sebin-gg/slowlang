@@ -1,0 +1,7 @@
+Find up to 10 personal portfolio websites of student developers in Kerala, India.
+
+Signal interests: playful or satirical side projects (joke or esoteric programming languages, deliberately useless hackathon builds), active roles in campus tech communities, and developers who write publicly about their work. Portfolios may surface directly or through project posts and community pages - follow the trail to each person's own site.
+
+Rank by portfolio quality, technical depth, achievements, and online discoverability. Treat llms.txt, Schema.org JSON-LD, SEO, and AEO as bonus signals, not requirements.
+
+For each person, list their name, portfolio URL, one-line description, and how you discovered them. Verify claims using public sources. Include strong partial matches. Do not invent results.

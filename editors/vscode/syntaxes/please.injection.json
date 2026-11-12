@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "scopeName": "slowlang.please.injection",
+  "injectionSelector": "L:source.slowlang",
+  "patterns": [
+    {
+      "name": "keyword.other.slowlang",
+      "match": "\\bplease(?=\\s*\\()"
+    }
+  ]
+}
