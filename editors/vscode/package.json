@@ -2,7 +2,7 @@
   "name": "slowlang",
   "displayName": "SlowLang",
   "description": "Syntax highlighting for SlowLang (.slow) - the esoteric programming language that punishes fast typing. Python grammar plus the please() keyword.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "sebin-gg",
   "license": "MIT",
   "engines": {
@@ -49,5 +49,6 @@
         ]
       }
     ]
-  }
+  },
+  "icon": "icon.png"
 }
