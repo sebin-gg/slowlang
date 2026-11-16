@@ -68,12 +68,12 @@ class TypingEngine:
                 if keyboard.is_pressed('ctrl+e'):
                     # Export as .slow and check for please()
                     filename = "tortoise_output.slow"
-                    with open(filename, "w", encoding="utf-8") as f:
-                        f.write(self.buffer)
                     lines = self.buffer.splitlines()
                     if not check_pleases(lines):
                         _emit("🐢 Refusing to export rude code. Add more 'please()' calls!")
                     else:
+                        with open(filename, "w", encoding="utf-8") as f:
+                            f.write(self.buffer)
                         _emit(f"✅ Code exported as {filename} and is polite enough!\n")
                     continue
 

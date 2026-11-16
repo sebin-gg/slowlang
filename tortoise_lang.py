@@ -12,6 +12,8 @@ def check_pleases(lines, rng=None):
     i = 0
     while i < len(lines):
         step = rng.randint(3, 7)
+        if step < 1:
+            step = 3  # guard against a degenerate injected RNG
         windows.append((i, step))
         i += step
 
