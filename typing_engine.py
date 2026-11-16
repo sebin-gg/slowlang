@@ -1,9 +1,9 @@
-import random
 import time
-_rng = random.SystemRandom()
 
 from ascii_turtle import show_turtle_rage
 from sarcasm_engine import get_sarcastic_remark
+from tortoise_lang import check_pleases
+from emit import _emit
 
 
 class TypingSpeedError(Exception):
@@ -15,8 +15,11 @@ def wpm_from_timestamps(timestamps, now, window=10.0):
     recent = [ts for ts in timestamps if 0 <= now - ts <= window]
     if len(recent) < 2:
         return 0.0
-    span = max(recent[-1] - recent[0], 1e-6)
-    return (len(recent) / 5) / (span / 60)
+    span = recent[-1] - recent[0]
+    if span <= 0:  # simultaneous timestamps are one burst, not infinite speed
+        return 0.0
+    # The span covers len-1 intervals; counting len keystrokes inflates the rate.
+    return ((len(recent) - 1) / 5) / (span / 60)
 
 
 class TypingEngine:
@@ -26,46 +29,23 @@ class TypingEngine:
         self.buffer = ''
         self.error_triggered = False
 
-    def _word_count(self):
-        return len(self.buffer.strip().split())
-
     def _calculate_speed(self):
-        if len(self.timestamps) < 2:
-            return 0
-        duration = self.timestamps[-1] - self.timestamps[0]
-        if duration == 0:
-            return 0
-        wpm = (self._word_count() / duration) * 60
-        return wpm
+        """Rolling WPM over the buffered keystrokes (5 characters = 1 word)."""
+        if not self.timestamps:
+            return 0.0
+        return wpm_from_timestamps(self.timestamps, time.time())
 
     def _reset(self):
         self.timestamps = []
         self.buffer = ''
         self.error_triggered = False
 
-    def _check_please(self, lines):
-        """Check that 'please()' appears at random intervals in the code."""
-        import random
-        required_indices = []
-        i = 0
-        while i < len(lines):
-            step = _rng.randint(3, 7)
-            required_indices.append(i)
-            i += step
-
-        for idx in required_indices:
-            window = lines[idx:idx+step]
-            if not any('please()' in line.replace(' ', '') for line in window):
-                print(f"😡 Your code is too rude! Please add a 'please()' call near line {idx+1}.")
-                return False
-        return True
-
     def type_listener(self):
         import keyboard  # lazy: helpers stay importable without optional deps
         from exporter import export_text
 
-        print("🐢 Welcome to TortoiseLang! Type slowly...\n")
-        print("Shortcuts: [esc]=exit, [ctrl+s]=save, [ctrl+r]=reset, [ctrl+w]=show WPM, [ctrl+e]=export as .slow and check politeness\n")
+        _emit("🐢 Welcome to TortoiseLang! Type slowly...\n")
+        _emit("Shortcuts: [esc]=exit, [ctrl+s]=save, [ctrl+r]=reset, [ctrl+w]=show WPM, [ctrl+e]=export as .slow and check politeness\n")
         self._reset()
 
         while True:
@@ -76,26 +56,26 @@ class TypingEngine:
                 # Handle shortcuts
                 if keyboard.is_pressed('ctrl+s'):
                     export_text(self.buffer)
-                    print("✅ Text exported!\n")
+                    _emit("✅ Text exported!\n")
                     continue
                 if keyboard.is_pressed('ctrl+r'):
                     self._reset()
-                    print("🔄 Buffer reset!\n")
+                    _emit("🔄 Buffer reset!\n")
                     continue
                 if keyboard.is_pressed('ctrl+w'):
                     speed = self._calculate_speed()
-                    print(f"🐢 Current WPM: {speed:.2f}\n")
+                    _emit(f"🐢 Current WPM: {speed:.2f}\n")
                     continue
                 if keyboard.is_pressed('ctrl+e'):
                     # Export as .slow and check for please()
                     filename = "tortoise_output.slow"
-                    with open(filename, "w", encoding="utf-8") as f:
-                        f.write(self.buffer)
                     lines = self.buffer.splitlines()
-                    if not self._check_please(lines):
-                        print("🐢 Refusing to export rude code. Add more 'please()' calls!")
+                    if not check_pleases(lines):
+                        _emit("🐢 Refusing to export rude code. Add more 'please()' calls!")
                     else:
-                        print(f"✅ Code exported as {filename} and is polite enough!\n")
+                        with open(filename, "w", encoding="utf-8") as f:
+                            f.write(self.buffer)
+                        _emit(f"✅ Code exported as {filename} and is polite enough!\n")
                     continue
 
                 # Handle space or enter as a word boundary
@@ -105,6 +85,11 @@ class TypingEngine:
                     self.buffer = self.buffer[:-1]
                 elif len(key) == 1:
                     self.buffer += key
+
+                # Only text-producing keys count as typing — modifiers and
+                # navigation keys aren't keystrokes (desktop/demo parity).
+                if key != 'esc' and len(key) != 1 and key not in ('space', 'enter', 'backspace', 'tab'):
+                    continue
 
                 # Timestamp this key
                 self.timestamps.append(time.time())
@@ -117,13 +102,13 @@ class TypingEngine:
                 if speed > self.speed_limit_wpm:
                     self.error_triggered = True
                     show_turtle_rage()
-                    print(get_sarcastic_remark())
+                    _emit(get_sarcastic_remark())
                     raise TypingSpeedError(
                         f"\n?? Whoa there, Shakespeare!\n?? You're typing at {int(speed)} WPM!\n?? Slow down. This is TortoiseLang.\n"
                     )
 
                 if key == 'esc':
-                    print("\n👋 Exiting typing engine. Goodbye!")
+                    _emit("\n👋 Exiting typing engine. Goodbye!")
                     break
 
 if __name__ == "__main__":
@@ -131,4 +116,4 @@ if __name__ == "__main__":
     try:
         engine.type_listener()
     except TypingSpeedError as e:
-        print(str(e))
+        _emit(str(e))

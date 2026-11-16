@@ -46,7 +46,7 @@ function checkPleases(lines) {
   }
   for (const [i, step] of idx) {
     const window = lines.slice(i, i + step);
-    if (!window.some((l) => l.replace(/ /g, "").includes("please()"))) {
+    if (!window.some((l) => l.replace(/[ \t]/g, "").includes("please()"))) {
       console.log(TURTLE_RAGE.join("\n"));
       console.log(`Your code is too rude! Please add a 'please()' call near line ${i + 1}.`);
       return false;

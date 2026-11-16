@@ -1,8 +1,8 @@
 from feature_popup import show_features_popup
 
-show_features_popup()
 import keyword
 import random
+import re
 import time
 import tkinter as tk
 from tkinter import messagebox
@@ -87,15 +87,15 @@ class PythonSyntaxText(tk.Text):
 
     def _on_return(self, event):
         # Smart indentation for Python blocks (for, if, def, class, while, try, except, finally, with)
-        line_idx = int(self.index(tk.INSERT).split('.')[0]) - 1
-        prev_line = self.get(f"{line_idx}.0", f"{line_idx}.end")
-        indent = len(prev_line) - len(prev_line.lstrip(' '))
+        line_idx = int(self.index(tk.INSERT).split('.')[0])
+        current_line = self.get(f"{line_idx}.0", tk.INSERT)
+        indent = len(current_line) - len(current_line.lstrip(' '))
         # Increase indent after colon (block openers)
-        if prev_line.rstrip().endswith(':'):
+        if current_line.rstrip().endswith(':'):
             indent += 4
-        # Decrease indent for dedent keywords
-        dedent_keywords = ('return', 'break', 'continue', 'pass', 'raise')
-        if any(prev_line.strip().startswith(kw) for kw in dedent_keywords):
+        # Decrease indent for dedent keywords (whole token only, so that
+        # `return_value = 1` keeps its indent)
+        if re.match(r'^\s*(return|break|continue|pass|raise)\b', current_line):
             indent = max(0, indent - 4)
         self.insert(tk.INSERT, '\n' + ' ' * indent)
         return "break"
@@ -205,7 +205,16 @@ class TortoiseIDE:
         if self.turtle_angry:
             return "break"
 
+    MODIFIER_KEYS = frozenset({
+        "Shift_L", "Shift_R", "Control_L", "Control_R", "Alt_L", "Alt_R",
+        "Meta_L", "Meta_R", "Super_L", "Super_R", "Caps_Lock",
+        "ISO_Level3_Shift", "Mode_switch",  # AltGr on X11 layouts
+    })
+
     def track_speed(self, event):
+        # Modifier keys are not typing: a capital letter must not read as a speed spike.
+        if getattr(event, "keysym", "") in self.MODIFIER_KEYS:
+            return
         now = time.time()
         delta = now - self.last_time
         self.last_time = now
@@ -292,9 +301,10 @@ class TortoiseIDE:
         output_text.insert(tk.END, "\n✨ Poetic wisdom:\n" + get_poetic_output() + "\n")
 
         # Show turtle satisfaction or dissatisfaction
-        if _rng.random() < 0.2:
+        roll = _rng.random()
+        if roll < 0.2:
             show_turtle_rage()
-        elif _rng.random() < 0.5:
+        elif roll < 0.5:
             show_turtle_too_slow()
         else:
             show_turtle_just_right()
@@ -309,6 +319,7 @@ class TortoiseIDE:
         self.run_btn.config(state=tk.NORMAL)
 
 if __name__ == "__main__":
+    show_features_popup()
     root = tk.Tk()
     root.configure(bg="#1e1e1e")
     app = TortoiseIDE(root)

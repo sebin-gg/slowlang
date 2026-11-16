@@ -70,3 +70,18 @@ test("checkPleases true on polite, false on rude", () => {
   assert.equal(checkPleases(Array(20).fill("please()")), true);
   assert.equal(checkPleases(Array(20).fill("print('hi')")), false);
 });
+
+test("tab-indented please() counts (desktop/demo parity)", () => {
+  assert.equal(checkPleases(Array(20).fill("\t\tplease()")), true);
+  const f = tmpFile(Array(20).fill("\tplease()").join("\n"));
+  const { code, out } = capture(() => main(["node", "slowlang", f], () => 0.5));
+  assert.equal(code, 0);
+  assert.match(out, /Politeness check passed/);
+});
+
+test("trailing newline does not misreport a polite file", () => {
+  const f = tmpFile(Array(20).fill("please()").join("\n") + "\n");
+  const { code, out } = capture(() => main(["node", "slowlang", f], () => 0.5));
+  assert.equal(code, 0);
+  assert.match(out, /Politeness check passed/);
+});

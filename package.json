@@ -9,7 +9,7 @@
     "bin"
   ],
   "scripts": {
-    "test": "node --test tests/demo_smoke.mjs"
+    "test": "node --test tests/demo_smoke.mjs tests/cli_smoke.mjs"
   },
   "keywords": [
     "esolang",

@@ -170,7 +170,7 @@ test("run executes code, shows wisdom and restores the button", async () => {
     globals: { set: (name, fn) => { realGlobals[name] = fn; } },
     runPythonAsync: async () => { realGlobals.please(); },
   });
-  el("editor").value = 'print("hi")';
+  el("editor").value = 'please()\nprint("hi")';
   el("lazy-mode").checked = true; // skip the 1-in-10 lazy refusal
   await el("run-btn").click();
   assert.equal(el("run-btn").disabled, false);
@@ -208,4 +208,57 @@ test("copy buttons hand text to the clipboard", async () => {
 test("diary records rages and runs", () => {
   assert.ok(el("diary-summary").textContent.includes("Rage diary (3)"));
   assert.equal(el("diary-list").childCount, 3);
+});
+
+test("checkPleases accepts every polite window", () => {
+  assert.equal(api.checkPleases(["please()", "print('a')", "print('b')"]), 0);
+});
+
+test("checkPleases reports the first rude window's start line", () => {
+  // Mirror of the Python per-window-length test: only the last line is
+  // polite, so the first 3-line window must fail at line 1.
+  const lines = ["print('a')", "print('b')", "print('c')", "print('d')", "please()"];
+  assert.equal(api.checkPleases(lines, [3, 7]), 1);
+  // All windows polite -> 0.
+  const ok = ["please()", "print('a')", "print('b')", "please()", "print('c')"];
+  assert.equal(api.checkPleases(ok, [3, 3]), 0);
+});
+
+test("checkPleases detects tab-indented please()", () => {
+  assert.equal(api.checkPleases(["print('a')", "\tplease()", "print('b')"], [3]), 0);
+});
+
+test("rude code is refused before Python runs", async () => {
+  api.resetPyodide(); // clear any runtime cached by earlier tests
+  let ran = 0;
+  globalThis.loadPyodide = async () => ({
+    setStdout: () => {},
+    setStderr: () => {},
+    globals: { set: () => {} },
+    runPythonAsync: async () => { ran += 1; },
+  });
+  el("editor").value = 'print("no manners")';
+  el("lazy-mode").checked = true; // skip the 1-in-10 lazy refusal
+  await el("run-btn").click();
+  assert.equal(ran, 0);
+  assert.ok(el("output").textContent.includes("too rude"));
+  assert.ok(el("output").textContent.includes("Refusing to run rude code"));
+  assert.equal(el("run-btn").disabled, false);
+  delete globalThis.loadPyodide;
+});
+
+test("modifier keys never trigger rage", () => {
+  api.calmTurtle();
+  // Back-to-back modifiers share a sub-0.1s delta: without the filter the
+  // second event reads as a speed spike and rages.
+  for (const key of ["Shift", "Shift", "Control", "Alt", "Meta", "CapsLock"]) {
+    for (const fn of el("editor").__handlers.keydown) fn({ key });
+  }
+  assert.equal(el("rage").hidden, true);
+  api.calmTurtle();
+  // Sanity: real keys back-to-back still rage — the handler isn't dead.
+  for (const fn of el("editor").__handlers.keydown) fn({ key: "a" });
+  for (const fn of el("editor").__handlers.keydown) fn({ key: "b" });
+  assert.equal(el("rage").hidden, false);
+  api.calmTurtle();
 });
