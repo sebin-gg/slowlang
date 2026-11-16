@@ -299,9 +299,10 @@ class TortoiseIDE:
         output_text.insert(tk.END, "\n✨ Poetic wisdom:\n" + get_poetic_output() + "\n")
 
         # Show turtle satisfaction or dissatisfaction
-        if _rng.random() < 0.2:
+        roll = _rng.random()
+        if roll < 0.2:
             show_turtle_rage()
-        elif _rng.random() < 0.5:
+        elif roll < 0.5:
             show_turtle_too_slow()
         else:
             show_turtle_just_right()
