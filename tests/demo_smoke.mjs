@@ -229,17 +229,18 @@ test("checkPleases detects tab-indented please()", () => {
 });
 
 test("rude code is refused before Python runs", async () => {
-  let ran = false;
+  api.resetPyodide(); // clear any runtime cached by earlier tests
+  let ran = 0;
   globalThis.loadPyodide = async () => ({
     setStdout: () => {},
     setStderr: () => {},
     globals: { set: () => {} },
-    runPythonAsync: async () => { ran = true; },
+    runPythonAsync: async () => { ran += 1; },
   });
   el("editor").value = 'print("no manners")';
   el("lazy-mode").checked = true; // skip the 1-in-10 lazy refusal
   await el("run-btn").click();
-  assert.equal(ran, false);
+  assert.equal(ran, 0);
   assert.ok(el("output").textContent.includes("too rude"));
   assert.ok(el("output").textContent.includes("Refusing to run rude code"));
   assert.equal(el("run-btn").disabled, false);

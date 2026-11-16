@@ -114,9 +114,14 @@ def test_wpm_needs_two_keystrokes():
 
 
 def test_wpm_math_and_window():
-    stamps = [90.0 + i * 0.2 for i in range(50)]  # 50 keys over 9.8 s
-    assert abs(wpm_from_timestamps(stamps, 100.0) - 10 / (9.8 / 60)) < 0.01
+    stamps = [90.0 + i * 0.2 for i in range(50)]  # 50 keys, 49 intervals, 9.8 s
+    assert abs(wpm_from_timestamps(stamps, 100.0) - (49 / 5) / (9.8 / 60)) < 0.01
     assert wpm_from_timestamps([0.0, 0.1], 100.0) == 0.0  # outside window
+
+
+def test_wpm_counts_intervals_not_keystrokes():
+    # Two keys 0.5 s apart = one character per half-second = 24 WPM, not 48.
+    assert wpm_from_timestamps([100.0, 100.5], 100.5) == 24.0
 
 
 def test_main_usage_message(capsys, monkeypatch):

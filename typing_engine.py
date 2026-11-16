@@ -18,7 +18,8 @@ def wpm_from_timestamps(timestamps, now, window=10.0):
     span = recent[-1] - recent[0]
     if span <= 0:  # simultaneous timestamps are one burst, not infinite speed
         return 0.0
-    return (len(recent) / 5) / (span / 60)
+    # The span covers len-1 intervals; counting len keystrokes inflates the rate.
+    return ((len(recent) - 1) / 5) / (span / 60)
 
 
 class TypingEngine:

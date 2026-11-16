@@ -2,6 +2,7 @@ from feature_popup import show_features_popup
 
 import keyword
 import random
+import re
 import time
 import tkinter as tk
 from tkinter import messagebox
@@ -92,9 +93,9 @@ class PythonSyntaxText(tk.Text):
         # Increase indent after colon (block openers)
         if current_line.rstrip().endswith(':'):
             indent += 4
-        # Decrease indent for dedent keywords
-        dedent_keywords = ('return', 'break', 'continue', 'pass', 'raise')
-        if any(current_line.strip().startswith(kw) for kw in dedent_keywords):
+        # Decrease indent for dedent keywords (whole token only, so that
+        # `return_value = 1` keeps its indent)
+        if re.match(r'^\s*(return|break|continue|pass|raise)\b', current_line):
             indent = max(0, indent - 4)
         self.insert(tk.INSERT, '\n' + ' ' * indent)
         return "break"
@@ -207,6 +208,7 @@ class TortoiseIDE:
     MODIFIER_KEYS = frozenset({
         "Shift_L", "Shift_R", "Control_L", "Control_R", "Alt_L", "Alt_R",
         "Meta_L", "Meta_R", "Super_L", "Super_R", "Caps_Lock",
+        "ISO_Level3_Shift", "Mode_switch",  # AltGr on X11 layouts
     })
 
     def track_speed(self, event):

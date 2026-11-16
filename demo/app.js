@@ -630,6 +630,7 @@ if (typeof introEl.showModal === "function") {
 if (typeof window !== "undefined") {
   window.__slowlang = {
     runWithFallback: runWithFallback,
+    resetPyodide: function () { pyodide = null; pyodideFailed = false; },
     checkPleases: checkPleases,
     highlightLine: highlightLine,
     sarcasticMessage: sarcasticMessage,
