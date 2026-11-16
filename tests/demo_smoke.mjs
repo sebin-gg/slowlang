@@ -234,7 +234,16 @@ test("rude code is refused before Python runs", async () => {
 
 test("modifier keys never trigger rage", () => {
   api.calmTurtle();
-  for (const fn of el("editor").__handlers.keydown) fn({ key: "Shift" });
+  // Back-to-back modifiers share a sub-0.1s delta: without the filter the
+  // second event reads as a speed spike and rages.
+  for (const key of ["Shift", "Shift", "Control", "Alt", "Meta", "CapsLock"]) {
+    for (const fn of el("editor").__handlers.keydown) fn({ key });
+  }
   assert.equal(el("rage").hidden, true);
+  api.calmTurtle();
+  // Sanity: real keys back-to-back still rage — the handler isn't dead.
+  for (const fn of el("editor").__handlers.keydown) fn({ key: "a" });
+  for (const fn of el("editor").__handlers.keydown) fn({ key: "b" });
+  assert.equal(el("rage").hidden, false);
   api.calmTurtle();
 });

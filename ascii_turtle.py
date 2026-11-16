@@ -1,3 +1,5 @@
+from tortoise_lang import _emit
+
 def show_turtle_rage():
     turtle = r"""
                _____     ______
@@ -10,7 +12,7 @@ def show_turtle_rage():
             /_/     \_\
     🐢 RAGE MODE: Turtle is not amused by your speed.
     """
-    print(turtle) 
+    _emit(turtle) 
 
 def show_turtle_just_right():
     turtle = r"""
@@ -23,7 +25,7 @@ def show_turtle_just_right():
        \_______/
     🐢 Turtle is content with your pace.
     """
-    print(turtle)
+    _emit(turtle)
 
 def show_turtle_too_slow():
     turtle = r"""
@@ -36,4 +38,4 @@ def show_turtle_too_slow():
        \_______/
     🐢 Turtle is falling asleep. Type a bit faster!
     """
-    print(turtle)
+    _emit(turtle)

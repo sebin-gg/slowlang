@@ -1,4 +1,5 @@
 from pathlib import Path
+import codecs
 import random
 import sys
 _rng = random.SystemRandom()
@@ -14,6 +15,10 @@ def _emit(text):
     try:
         text.encode(encoding)
     except (LookupError, UnicodeEncodeError):
+        try:
+            encoding = codecs.lookup(encoding).name
+        except LookupError:
+            encoding = "utf-8"
         text = text.encode(encoding, "replace").decode(encoding, "replace")
     print(text)
 
@@ -30,7 +35,7 @@ def check_pleases(lines, rng=None):
 
     for idx, step in windows:
         window = lines[idx:idx + step]
-        if not any('please()' in line.replace(' ', '') for line in window):
+        if not any('please()' in line.replace(' ', '').replace('\t', '') for line in window):
             _emit(f"😡 Your code is too rude! Please add a 'please()' call near line {idx+1}.")
             return False
     return True

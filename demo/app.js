@@ -227,7 +227,7 @@ function checkPleases(lines) {
     var size = windows[w][1];
     var polite = false;
     for (var k = start; k < start + size && k < lines.length; k++) {
-      if (lines[k].replace(/ /g, "").indexOf("please()") !== -1) {
+      if (lines[k].replace(/[ \t]/g, "").indexOf("please()") !== -1) {
         polite = true;
         break;
       }
@@ -512,7 +512,9 @@ runBtn.addEventListener("click", async function () {
   try {
     await fakeCompile();
     var code = editor.value;
-    var rudeLine = checkPleases(code.split("\n"));
+    var codeLines = code.split("\n");
+    if (codeLines.length && codeLines[codeLines.length - 1] === "") codeLines.pop();
+    var rudeLine = checkPleases(codeLines);
     if (rudeLine) {
       outputEl.textContent =
         "😡 Your code is too rude! Please add a 'please()' call near line " + rudeLine + ".\n" +
