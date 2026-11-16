@@ -332,7 +332,7 @@ function calmTurtle() {
 editor.addEventListener("keydown", function (ev) {
   if (turtleAngry) return;
   // Modifier keys are not typing: a capital letter must not read as a speed spike.
-  if (ev && /^(Shift|Control|Alt|Meta|CapsLock)$/.test(ev.key)) return;
+  if (ev && /^(Shift|Control|Alt|AltGraph|Meta|CapsLock)$/.test(ev.key)) return;
   var now = performance.now() / 1000;
   var delta = now - lastTime;
   lastTime = now;
