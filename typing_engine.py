@@ -32,7 +32,7 @@ class TypingEngine:
         """Rolling WPM over the buffered keystrokes (5 characters = 1 word)."""
         if not self.timestamps:
             return 0.0
-        return wpm_from_timestamps(self.timestamps, self.timestamps[-1])
+        return wpm_from_timestamps(self.timestamps, time.time())
 
     def _reset(self):
         self.timestamps = []
@@ -84,6 +84,11 @@ class TypingEngine:
                     self.buffer = self.buffer[:-1]
                 elif len(key) == 1:
                     self.buffer += key
+
+                # Only text-producing keys count as typing — modifiers and
+                # navigation keys aren't keystrokes (desktop/demo parity).
+                if key != 'esc' and len(key) != 1 and key not in ('space', 'enter', 'backspace', 'tab'):
+                    continue
 
                 # Timestamp this key
                 self.timestamps.append(time.time())
