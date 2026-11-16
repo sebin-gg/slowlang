@@ -214,6 +214,20 @@ test("checkPleases accepts every polite window", () => {
   assert.equal(api.checkPleases(["please()", "print('a')", "print('b')"]), 0);
 });
 
+test("checkPleases reports the first rude window's start line", () => {
+  // Mirror of the Python per-window-length test: only the last line is
+  // polite, so the first 3-line window must fail at line 1.
+  const lines = ["print('a')", "print('b')", "print('c')", "print('d')", "please()"];
+  assert.equal(api.checkPleases(lines, [3, 7]), 1);
+  // All windows polite -> 0.
+  const ok = ["please()", "print('a')", "print('b')", "please()", "print('c')"];
+  assert.equal(api.checkPleases(ok, [3, 3]), 0);
+});
+
+test("checkPleases detects tab-indented please()", () => {
+  assert.equal(api.checkPleases(["print('a')", "\tplease()", "print('b')"], [3]), 0);
+});
+
 test("rude code is refused before Python runs", async () => {
   let ran = false;
   globalThis.loadPyodide = async () => ({

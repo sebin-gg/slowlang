@@ -2,7 +2,8 @@ import time
 
 from ascii_turtle import show_turtle_rage
 from sarcasm_engine import get_sarcastic_remark
-from tortoise_lang import check_pleases, _emit
+from tortoise_lang import check_pleases
+from emit import _emit
 
 
 class TypingSpeedError(Exception):
@@ -14,7 +15,9 @@ def wpm_from_timestamps(timestamps, now, window=10.0):
     recent = [ts for ts in timestamps if 0 <= now - ts <= window]
     if len(recent) < 2:
         return 0.0
-    span = max(recent[-1] - recent[0], 1e-6)
+    span = recent[-1] - recent[0]
+    if span <= 0:  # simultaneous timestamps are one burst, not infinite speed
+        return 0.0
     return (len(recent) / 5) / (span / 60)
 
 

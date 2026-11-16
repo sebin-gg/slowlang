@@ -215,10 +215,12 @@ function poeticOutput() {
 /* --- Politeness protocol (ports tortoise_lang.check_pleases) ---
    Returns 0 when every 3–7 line window contains a please() call, otherwise
    the 1-based line number of the first rude window. */
-function checkPleases(lines) {
+function checkPleases(lines, steps) {
   var windows = [];
+  var si = 0;
   for (var i = 0; i < lines.length; ) {
-    var step = 3 + randomIndex(5);
+    var step = steps ? steps[si++] : 3 + randomIndex(5);
+    if (!step || step < 1) step = 3;
     windows.push([i, step]);
     i += step;
   }

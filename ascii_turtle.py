@@ -1,4 +1,4 @@
-from tortoise_lang import _emit
+from emit import _emit
 
 def show_turtle_rage():
     turtle = r"""

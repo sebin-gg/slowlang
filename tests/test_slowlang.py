@@ -137,3 +137,24 @@ def test_main_runs_file(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["slowlang", "x.slow"])
     main()
     assert called["f"] == "x.slow"
+
+
+def test_check_pleases_detects_tab_indented_please():
+    lines = ["print('a')", "\tplease()", "print('b')"]
+    assert check_pleases(lines, rng=_FixedSteps([3])) is True
+
+
+def test_wpm_simultaneous_timestamps_do_not_rage():
+    assert wpm_from_timestamps([5.0, 5.0, 5.0], 5.0) == 0.0
+
+
+def test_emit_preserves_emoji_on_utf8_stream(monkeypatch):
+    import io
+    from tortoise_lang import please
+
+    raw = io.BytesIO()
+    stream = io.TextIOWrapper(raw, encoding="utf-8", errors="strict")
+    monkeypatch.setattr("sys.stdout", stream)
+    please()
+    stream.flush()
+    assert "\U0001f64f" in raw.getvalue().decode("utf-8")  # emoji kept, not replaced
