@@ -1,9 +1,8 @@
-import random
 import time
-_rng = random.SystemRandom()
 
 from ascii_turtle import show_turtle_rage
 from sarcasm_engine import get_sarcastic_remark
+from tortoise_lang import check_pleases
 
 
 class TypingSpeedError(Exception):
@@ -26,39 +25,16 @@ class TypingEngine:
         self.buffer = ''
         self.error_triggered = False
 
-    def _word_count(self):
-        return len(self.buffer.strip().split())
-
     def _calculate_speed(self):
-        if len(self.timestamps) < 2:
-            return 0
-        duration = self.timestamps[-1] - self.timestamps[0]
-        if duration == 0:
-            return 0
-        wpm = (self._word_count() / duration) * 60
-        return wpm
+        """Rolling WPM over the buffered keystrokes (5 characters = 1 word)."""
+        if not self.timestamps:
+            return 0.0
+        return wpm_from_timestamps(self.timestamps, self.timestamps[-1])
 
     def _reset(self):
         self.timestamps = []
         self.buffer = ''
         self.error_triggered = False
-
-    def _check_please(self, lines):
-        """Check that 'please()' appears at random intervals in the code."""
-        import random
-        required_indices = []
-        i = 0
-        while i < len(lines):
-            step = _rng.randint(3, 7)
-            required_indices.append(i)
-            i += step
-
-        for idx in required_indices:
-            window = lines[idx:idx+step]
-            if not any('please()' in line.replace(' ', '') for line in window):
-                print(f"😡 Your code is too rude! Please add a 'please()' call near line {idx+1}.")
-                return False
-        return True
 
     def type_listener(self):
         import keyboard  # lazy: helpers stay importable without optional deps
@@ -92,7 +68,7 @@ class TypingEngine:
                     with open(filename, "w", encoding="utf-8") as f:
                         f.write(self.buffer)
                     lines = self.buffer.splitlines()
-                    if not self._check_please(lines):
+                    if not check_pleases(lines):
                         print("🐢 Refusing to export rude code. Add more 'please()' calls!")
                     else:
                         print(f"✅ Code exported as {filename} and is polite enough!\n")

@@ -212,6 +212,31 @@ function poeticOutput() {
   return pick(HAIKUS);
 }
 
+/* --- Politeness protocol (ports tortoise_lang.check_pleases) ---
+   Returns 0 when every 3–7 line window contains a please() call, otherwise
+   the 1-based line number of the first rude window. */
+function checkPleases(lines) {
+  var windows = [];
+  for (var i = 0; i < lines.length; ) {
+    var step = 3 + randomIndex(5);
+    windows.push([i, step]);
+    i += step;
+  }
+  for (var w = 0; w < windows.length; w++) {
+    var start = windows[w][0];
+    var size = windows[w][1];
+    var polite = false;
+    for (var k = start; k < start + size && k < lines.length; k++) {
+      if (lines[k].replace(/ /g, "").indexOf("please()") !== -1) {
+        polite = true;
+        break;
+      }
+    }
+    if (!polite) return start + 1;
+  }
+  return 0;
+}
+
 /* --- Syntax highlighting (ports PythonSyntaxText._highlight_line) --- */
 function escapeHtml(s) {
   return s
@@ -302,8 +327,10 @@ function calmTurtle() {
 }
 
 /* --- Typing-speed enforcement (ports TortoiseIDE.track_speed) --- */
-editor.addEventListener("keydown", function () {
+editor.addEventListener("keydown", function (ev) {
   if (turtleAngry) return;
+  // Modifier keys are not typing: a capital letter must not read as a speed spike.
+  if (ev && /^(Shift|Control|Alt|Meta|CapsLock)$/.test(ev.key)) return;
   var now = performance.now() / 1000;
   var delta = now - lastTime;
   lastTime = now;
@@ -485,6 +512,16 @@ runBtn.addEventListener("click", async function () {
   try {
     await fakeCompile();
     var code = editor.value;
+    var rudeLine = checkPleases(code.split("\n"));
+    if (rudeLine) {
+      outputEl.textContent =
+        "😡 Your code is too rude! Please add a 'please()' call near line " + rudeLine + ".\n" +
+        "🐢 Refusing to run rude code.";
+      outputEl.classList.add("output-error");
+      setStatus("Rude code refused. Add a please().", "is-rage");
+      logDiary("Refused to run — code was too rude.");
+      return;
+    }
     var result = "";
     var usedFallback = false;
     if (!pyodideFailed) {
@@ -589,6 +626,7 @@ if (typeof introEl.showModal === "function") {
 if (typeof window !== "undefined") {
   window.__slowlang = {
     runWithFallback: runWithFallback,
+    checkPleases: checkPleases,
     highlightLine: highlightLine,
     sarcasticMessage: sarcasticMessage,
     poeticOutput: poeticOutput,

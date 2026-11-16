@@ -170,7 +170,7 @@ test("run executes code, shows wisdom and restores the button", async () => {
     globals: { set: (name, fn) => { realGlobals[name] = fn; } },
     runPythonAsync: async () => { realGlobals.please(); },
   });
-  el("editor").value = 'print("hi")';
+  el("editor").value = 'please()\nprint("hi")';
   el("lazy-mode").checked = true; // skip the 1-in-10 lazy refusal
   await el("run-btn").click();
   assert.equal(el("run-btn").disabled, false);
@@ -208,4 +208,33 @@ test("copy buttons hand text to the clipboard", async () => {
 test("diary records rages and runs", () => {
   assert.ok(el("diary-summary").textContent.includes("Rage diary (3)"));
   assert.equal(el("diary-list").childCount, 3);
+});
+
+test("checkPleases accepts every polite window", () => {
+  assert.equal(api.checkPleases(["please()", "print('a')", "print('b')"]), 0);
+});
+
+test("rude code is refused before Python runs", async () => {
+  let ran = false;
+  globalThis.loadPyodide = async () => ({
+    setStdout: () => {},
+    setStderr: () => {},
+    globals: { set: () => {} },
+    runPythonAsync: async () => { ran = true; },
+  });
+  el("editor").value = 'print("no manners")';
+  el("lazy-mode").checked = true; // skip the 1-in-10 lazy refusal
+  await el("run-btn").click();
+  assert.equal(ran, false);
+  assert.ok(el("output").textContent.includes("too rude"));
+  assert.ok(el("output").textContent.includes("Refusing to run rude code"));
+  assert.equal(el("run-btn").disabled, false);
+  delete globalThis.loadPyodide;
+});
+
+test("modifier keys never trigger rage", () => {
+  api.calmTurtle();
+  for (const fn of el("editor").__handlers.keydown) fn({ key: "Shift" });
+  assert.equal(el("rage").hidden, true);
+  api.calmTurtle();
 });
